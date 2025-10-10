@@ -71,9 +71,10 @@ export default function VenueDetailPage() {
     
   const handleBooking = () => {
     if (selectedDate) {
+      const invoiceNumber = Math.floor(Math.random() * 9000) + 1000;
       toast({
-        title: 'Booking Confirmed!',
-        description: `Your booking for ${venue.name} on ${format(selectedDate, 'PPP')} is confirmed.`,
+        title: 'Success! Your booking is confirmed.',
+        description: `Check email for Invoice #${invoiceNumber}. Booking for ${venue.name} on ${format(selectedDate, 'PPP')}.`,
         variant: 'default'
       });
       setSelectedDate(undefined); // Reset date
