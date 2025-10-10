@@ -1,3 +1,88 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero",
+      "description": "Hero image for home page",
+      "imageUrl": "https://picsum.photos/seed/hero/1280/720",
+      "imageHint": "abstract landscape"
+    },
+    {
+      "id": "gallery1",
+      "description": "Gallery image 1",
+      "imageUrl": "https://picsum.photos/seed/g1/400/300",
+      "imageHint": "nature city"
+    },
+    {
+      "id": "gallery2",
+      "description": "Gallery image 2",
+      "imageUrl": "https://picsum.photos/seed/g2/400/300",
+      "imageHint": "architecture design"
+    },
+    {
+      "id": "gallery3",
+      "description": "Gallery image 3",
+      "imageUrl": "https://picsum.photos/seed/g3/400/300",
+      "imageHint": "people work"
+    },
+    {
+      "id": "gallery4",
+      "description": "Gallery image 4",
+      "imageUrl": "https://picsum.photos/seed/g4/400/300",
+      "imageHint": "animal pet"
+    },
+    {
+      "id": "gallery5",
+      "description": "Gallery image 5",
+      "imageUrl": "https://picsum.photos/seed/g5/400/300",
+      "imageHint": "food drink"
+    },
+    {
+      "id": "gallery6",
+      "description": "Gallery image 6",
+      "imageUrl": "https://picsum.photos/seed/g6/400/300",
+      "imageHint": "travel wanderlust"
+    },
+    {
+      "id": "gallery7",
+      "description": "Gallery image 7",
+      "imageUrl": "https://picsum.photos/seed/g7/400/300",
+      "imageHint": "technology code"
+    },
+    {
+      "id": "gallery8",
+      "description": "Gallery image 8",
+      "imageUrl": "https://picsum.photos/seed/g8/400/300",
+      "imageHint": "business office"
+    },
+    {
+      "id": "gallery9",
+      "description": "Gallery image 9",
+      "imageUrl": "https://picsum.photos/seed/g9/400/300",
+      "imageHint": "art music"
+    },
+    {
+      "id": "team1",
+      "description": "Team member 1",
+      "imageUrl": "https://picsum.photos/seed/t1/200/200",
+      "imageHint": "person portrait"
+    },
+    {
+      "id": "team2",
+      "description": "Team member 2",
+      "imageUrl": "https://picsum.photos/seed/t2/200/200",
+      "imageHint": "person portrait"
+    },
+    {
+      "id": "team3",
+      "description": "Team member 3",
+      "imageUrl": "https://picsum.photos/seed/t3/200/200",
+      "imageHint": "person portrait"
+    },
+    {
+      "id": "team4",
+      "description": "Team member 4",
+      "imageUrl": "https://picsum.photos/seed/t4/200/200",
+      "imageHint": "person portrait"
+    }
+  ]
 }
