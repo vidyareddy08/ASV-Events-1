@@ -1,6 +1,6 @@
 
 'use client';
-import React, 'react';
+import React from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { venues } from '@/lib/venue-data';
 import Image from 'next/image';
