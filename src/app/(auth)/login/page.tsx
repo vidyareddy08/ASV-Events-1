@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useAuth } from '@/hooks/useAuth';
@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Wind, Globe } from 'lucide-react';
+import { Wind, Globe, Eye, EyeOff, CheckCircle, XCircle } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
@@ -20,8 +20,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from '@/hooks/use-toast';
+import { cn } from '@/lib/utils';
 
-// Schemas remain the same
+// Schemas
 const passwordValidation = z.string()
   .min(8, 'Password must be at least 8 characters.')
   .regex(/[A-Z]/, 'Password must contain at least one uppercase letter.')
@@ -50,6 +51,7 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 function LoginForm({ onSwitchToSignup, initialEmail }: { onSwitchToSignup: () => void; initialEmail?: string; }) {
   const { login } = useAuth();
   const { toast } = useToast();
+  const [showPassword, setShowPassword] = useState(false);
   
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -59,6 +61,8 @@ function LoginForm({ onSwitchToSignup, initialEmail }: { onSwitchToSignup: () =>
   useEffect(() => {
     if (initialEmail) {
       form.setValue('email', initialEmail);
+    } else {
+      form.reset({ email: '', password: '' });
     }
   }, [initialEmail, form]);
 
@@ -92,7 +96,22 @@ function LoginForm({ onSwitchToSignup, initialEmail }: { onSwitchToSignup: () =>
             <FormField control={form.control} name="password" render={({ field }) => (
               <FormItem>
                 <FormLabel>Password</FormLabel>
-                <FormControl><Input placeholder="••••••••" {...field} type="password" /></FormControl>
+                <div className="relative">
+                  <FormControl>
+                    <Input 
+                      placeholder="••••••••" 
+                      {...field} 
+                      type={showPassword ? 'text' : 'password'} 
+                    />
+                  </FormControl>
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-muted-foreground"
+                  >
+                    {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                  </button>
+                </div>
                 <FormMessage />
               </FormItem>
             )} />
@@ -115,12 +134,24 @@ function LoginForm({ onSwitchToSignup, initialEmail }: { onSwitchToSignup: () =>
 function SignupForm({ onSwitchToLogin }: { onSwitchToLogin: (email: string) => void; }) {
   const { signup } = useAuth();
   const { toast } = useToast();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const form = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchema),
     defaultValues: { email: '', password: '', confirmPassword: ''},
     mode: 'onTouched',
   });
+
+  const password = useWatch({ control: form.control, name: 'password' });
+
+  const passwordRules = [
+    { label: 'At least 8 characters', satisfied: (password || '').length >= 8 },
+    { label: 'One uppercase letter', satisfied: /[A-Z]/.test(password || '') },
+    { label: 'One lowercase letter', satisfied: /[a-z]/.test(password || '') },
+    { label: 'One number', satisfied: /[0-9]/.test(password || '') },
+    { label: 'One special character', satisfied: /[^A-Za-z0-9]/.test(password || '') },
+  ];
 
   function onSubmit(data: SignupFormValues) {
     const success = signup(data.email, data.password);
@@ -158,15 +189,45 @@ function SignupForm({ onSwitchToLogin }: { onSwitchToLogin: (email: string) => v
             <FormField control={form.control} name="password" render={({ field }) => (
               <FormItem>
                 <FormLabel>Password</FormLabel>
-                <FormControl><Input placeholder="Create a password" {...field} type="password" /></FormControl>
+                <div className="relative">
+                  <FormControl>
+                    <Input 
+                      placeholder="Create a password" 
+                      {...field} 
+                      type={showPassword ? 'text' : 'password'}
+                    />
+                  </FormControl>
+                   <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-muted-foreground"
+                  >
+                    {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                  </button>
+                </div>
                 <FormMessage />
               </FormItem>
             )} />
-
+            
             <FormField control={form.control} name="confirmPassword" render={({ field }) => (
               <FormItem>
                 <FormLabel>Confirm Password</FormLabel>
-                <FormControl><Input placeholder="Re-enter password" {...field} type="password" /></FormControl>
+                <div className="relative">
+                  <FormControl>
+                    <Input 
+                      placeholder="Re-enter password" 
+                      {...field} 
+                      type={showConfirmPassword ? 'text' : 'password'}
+                    />
+                  </FormControl>
+                   <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-muted-foreground"
+                  >
+                    {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                  </button>
+                </div>
                 <FormMessage />
               </FormItem>
             )} />
@@ -225,6 +286,10 @@ export default function LoginPage() {
       setInitialEmail(email);
       setAuthMode('login');
   };
+
+  if (isAuthenticated) {
+      return null;
+  }
 
   return (
     <div className="flex min-h-screen w-full items-center justify-center bg-background p-4">
