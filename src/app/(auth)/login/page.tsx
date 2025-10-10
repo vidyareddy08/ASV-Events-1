@@ -18,12 +18,32 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
+import { useToast } from '@/hooks/use-toast';
+
+const passwordValidation = z.string()
+  .min(8, { message: 'Password must be at least 8 characters.' })
+  .regex(/[A-Z]/, { message: 'Password must contain at least one uppercase letter.' })
+  .regex(/[a-z]/, { message: 'Password must contain at least one lowercase letter.' })
+  .regex(/[0-9]/, { message: 'Password must contain at least one number.' })
+  .regex(/[^A-Za-z0-9]/, { message: 'Password must contain at least one special character.' });
+
+const signupSchema = z.object({
+  email: z.string().email({ message: 'Please enter a valid email address.' }),
+  password: passwordValidation,
+  confirmPassword: z.string(),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Passwords don't match",
+  path: ['confirmPassword'],
+});
+
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email address.' }),
+  password: z.string().min(1, { message: 'Password is required.' }),
 });
 
+type SignupFormValues = z.infer<typeof signupSchema>;
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 const indianLanguages = [
@@ -44,8 +64,10 @@ const indianLanguages = [
 
 
 export default function LoginPage() {
-  const { login, isAuthenticated } = useAuth();
+  const { login, signup, isAuthenticated, user } = useAuth();
   const router = useRouter();
+  const { toast } = useToast();
+  const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
   const [selectedLanguage, setSelectedLanguage] = useState('en');
 
   useEffect(() => {
@@ -53,17 +75,52 @@ export default function LoginPage() {
       router.push('/');
     }
   }, [isAuthenticated, router]);
-
-  const form = useForm<LoginFormValues>({
+  
+  const loginForm = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
-    defaultValues: {
-      email: '',
-    },
+    defaultValues: { email: '', password: '' },
   });
 
-  function onSubmit(data: LoginFormValues) {
-    login(data.email);
+  const signupForm = useForm<SignupFormValues>({
+    resolver: zodResolver(signupSchema),
+    defaultValues: { email: '', password: '', confirmPassword: ''},
+  });
+
+  function onLoginSubmit(data: LoginFormValues) {
+    const success = login(data.email, data.password);
+    if (!success) {
+      toast({
+        variant: 'destructive',
+        title: 'Login Failed',
+        description: 'Invalid email or password. Please try again.',
+      });
+    }
   }
+  
+  function onSignupSubmit(data: SignupFormValues) {
+    const success = signup(data.email, data.password);
+    if(success) {
+       toast({
+        title: 'Signup Successful',
+        description: 'You can now log in with your new account.',
+      });
+      setAuthMode('login');
+      loginForm.setValue('email', data.email);
+    } else {
+       toast({
+        variant: 'destructive',
+        title: 'Signup Failed',
+        description: 'An account with this email already exists.',
+      });
+    }
+  }
+
+  const toggleAuthMode = () => {
+    setAuthMode(authMode === 'login' ? 'signup' : 'login');
+    loginForm.reset();
+    signupForm.reset();
+  }
+
 
   return (
     <div className="flex min-h-screen w-full items-center justify-center bg-background p-4">
@@ -90,30 +147,69 @@ export default function LoginPage() {
         </div>
         <Card className="shadow-2xl rounded-xl">
             <CardHeader className="text-center">
-            <CardTitle className="text-3xl font-headline">Hyderabad Venues</CardTitle>
-            <CardDescription>Welcome back! Please sign in to continue.</CardDescription>
+              <CardTitle className="text-3xl font-headline">Hyderabad Venues</CardTitle>
+              <CardDescription>
+                {authMode === 'login' ? 'Welcome back! Please sign in to continue.' : 'Create your account to book a venue.'}
+              </CardDescription>
             </CardHeader>
             <CardContent>
-            <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                    <FormItem>
+             {authMode === 'login' ? (
+                <Form {...loginForm}>
+                  <form onSubmit={loginForm.handleSubmit(onLoginSubmit)} className="space-y-4">
+                    <FormField control={loginForm.control} name="email" render={({ field }) => (
+                      <FormItem>
                         <FormLabel>Email</FormLabel>
-                        <FormControl>
-                        <Input placeholder="user@domain.com" {...field} />
-                        </FormControl>
+                        <FormControl><Input placeholder="user@domain.com" {...field} type="email" /></FormControl>
                         <FormMessage />
-                    </FormItem>
-                    )}
-                />
-                <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
-                    {form.formState.isSubmitting ? 'Signing In...' : 'Sign In'}
+                      </FormItem>
+                    )} />
+                    <FormField control={loginForm.control} name="password" render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Password</FormLabel>
+                        <FormControl><Input placeholder="••••••••" {...field} type="password" /></FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )} />
+                    <Button type="submit" className="w-full" disabled={loginForm.formState.isSubmitting}>
+                      {loginForm.formState.isSubmitting ? 'Signing In...' : 'Sign In'}
+                    </Button>
+                  </form>
+                </Form>
+              ) : (
+                 <Form {...signupForm}>
+                  <form onSubmit={signupForm.handleSubmit(onSignupSubmit)} className="space-y-4">
+                    <FormField control={signupForm.control} name="email" render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email</FormLabel>
+                        <FormControl><Input placeholder="user@domain.com" {...field} type="email" /></FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )} />
+                    <FormField control={signupForm.control} name="password" render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Password</FormLabel>
+                        <FormControl><Input placeholder="Create a password" {...field} type="password" /></FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )} />
+                    <FormField control={signupForm.control} name="confirmPassword" render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Confirm Password</FormLabel>
+                        <FormControl><Input placeholder="Re-enter password" {...field} type="password" /></FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )} />
+                    <Button type="submit" className="w-full" disabled={signupForm.formState.isSubmitting}>
+                       {signupForm.formState.isSubmitting ? 'Creating Account...' : 'Sign Up'}
+                    </Button>
+                  </form>
+                </Form>
+              )}
+               <div className="text-center mt-4">
+                <Button variant="link" onClick={toggleAuthMode} className="text-sm">
+                  {authMode === 'login' ? "New user? Click here to sign up" : "Already have an account? Sign in"}
                 </Button>
-                </form>
-            </Form>
+              </div>
             </CardContent>
         </Card>
       </div>
