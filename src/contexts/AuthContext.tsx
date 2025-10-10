@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       localStorage.removeItem('isAuthenticated');
       setIsAuthenticated(false);
       router.push('/login');
-    } catch (error)
+    } catch (error) {
       console.error('Could not access localStorage', error);
     }
   }, [router]);
