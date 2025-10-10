@@ -22,10 +22,9 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { addDays, format, isBefore } from 'date-fns';
+import { format, isBefore } from 'date-fns';
 import { CheckCircle, XCircle, PartyPopper, Tag, CreditCard, Landmark, IndianRupee } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { cn } from '@/lib/utils';
 
 export default function VenueDetailPage() {
   const params = useParams();
@@ -55,7 +54,7 @@ export default function VenueDetailPage() {
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  const sixtyDaysFromNow = addDays(today, 60);
+  const bookingHorizonEnd = new Date('2026-12-31');
 
   const isDateBooked = (date: Date) => {
     return venue.bookedDates.includes(format(date, 'yyyy-MM-dd'));
@@ -152,10 +151,10 @@ export default function VenueDetailPage() {
                   selected={selectedDate}
                   onSelect={handleDateSelect}
                   disabled={(date) =>
-                    isBefore(date, today) || date > sixtyDaysFromNow || isDateBooked(date)
+                    isBefore(date, today) || date > bookingHorizonEnd || isDateBooked(date)
                   }
                   fromDate={today}
-                  toDate={sixtyDaysFromNow}
+                  toDate={bookingHorizonEnd}
                   className="rounded-md border p-0"
                   components={{
                     DayContent: ({ date }) => {
