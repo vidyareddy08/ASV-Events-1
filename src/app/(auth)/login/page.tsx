@@ -64,7 +64,7 @@ const indianLanguages = [
 
 
 export default function LoginPage() {
-  const { login, signup, isAuthenticated, user } = useAuth();
+  const { login, signup, isAuthenticated } = useAuth();
   const router = useRouter();
   const { toast } = useToast();
   const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
