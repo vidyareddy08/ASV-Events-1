@@ -145,14 +145,6 @@ function SignupForm({ onSwitchToLogin }: { onSwitchToLogin: (email: string) => v
 
   const password = useWatch({ control: form.control, name: 'password' });
 
-  const passwordRules = [
-    { label: 'At least 8 characters', satisfied: (password || '').length >= 8 },
-    { label: 'One uppercase letter', satisfied: /[A-Z]/.test(password || '') },
-    { label: 'One lowercase letter', satisfied: /[a-z]/.test(password || '') },
-    { label: 'One number', satisfied: /[0-9]/.test(password || '') },
-    { label: 'One special character', satisfied: /[^A-Za-z0-9]/.test(password || '') },
-  ];
-
   function onSubmit(data: SignupFormValues) {
     const success = signup(data.email, data.password);
     if(success) {
@@ -273,7 +265,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      router.push('/');
+      router.push('/venues');
     }
   }, [isAuthenticated, router]);
   
