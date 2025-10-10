@@ -116,7 +116,7 @@ export const venues = [
   {
     id: 'venue-10',
     name: 'Hi-Tech Convention',
-    location: 'Hyderabad (West)',
+    location: 'Hyderabad (Central)',
     hallType: 'Conference',
     images: [
       'https://picsum.photos/seed/v10a/800/450',
@@ -178,7 +178,7 @@ export const venues = [
   {
     id: 'venue-15',
     name: 'Charminar Courtyard',
-    location: 'Hyderabad (West)',
+    location: 'Hyderabad (South)',
     hallType: 'Kalyana Mandapam',
     images: [
       'https://picsum.photos/seed/v15a/800/450',

@@ -14,7 +14,11 @@ const locations = [
   'Delhi (NCR)',
   'Bengaluru (Central)',
   'Chennai (North)',
+  'Hyderabad (North)',
+  'Hyderabad (South)',
+  'Hyderabad (East)',
   'Hyderabad (West)',
+  'Hyderabad (Central)',
 ];
 
 export default function VenuesPage() {
