@@ -23,8 +23,9 @@ import {
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { addDays, format, isBefore } from 'date-fns';
-import { CheckCircle, XCircle, PartyPopper } from 'lucide-react';
+import { CheckCircle, XCircle, PartyPopper, Tag, CreditCard, Landmark, IndianRupee } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { cn } from '@/lib/utils';
 
 export default function VenueDetailPage() {
   const params = useParams();
@@ -34,6 +35,7 @@ export default function VenueDetailPage() {
   const venue = venues.find((v) => v.id === venueId);
 
   const [selectedDate, setSelectedDate] = useState<Date | undefined>();
+  const [selectedPayment, setSelectedPayment] = useState<string | null>(null);
 
   if (!venue) {
     return (
@@ -65,26 +67,38 @@ export default function VenueDetailPage() {
     }
   };
 
-  const finalCost = selectedDate
-    ? Math.min(venue.baseCost * 1.18, 300000)
-    : venue.baseCost;
+  const baseCost = venue.baseCost;
+  const tax = baseCost * 0.18;
+  const totalBeforeDiscount = baseCost + tax;
+  const discount = totalBeforeDiscount * 0.15;
+  const finalCost = selectedDate ? totalBeforeDiscount - discount : baseCost;
     
   const handleBooking = () => {
-    if (selectedDate) {
-      const invoiceNumber = Math.floor(Math.random() * 9000) + 1000;
-      toast({
-        title: 'Success! Your booking is confirmed.',
-        description: `Check email for Invoice #${invoiceNumber}. Booking for ${venue.name} on ${format(selectedDate, 'PPP')}.`,
-        variant: 'default'
-      });
-      setSelectedDate(undefined); // Reset date
-    } else {
+    if (!selectedDate) {
        toast({
         title: 'Select a Date',
         description: `Please select an available date to book.`,
         variant: 'destructive'
       });
+      return;
     }
+    if (!selectedPayment) {
+        toast({
+         title: 'Select Payment Method',
+         description: `Please choose a payment method to proceed.`,
+         variant: 'destructive'
+       });
+       return;
+     }
+
+    const invoiceNumber = Math.floor(Math.random() * 9000) + 1000;
+    toast({
+      title: 'Success! Your booking is confirmed.',
+      description: `Check email for Invoice #${invoiceNumber}. Booking for ${venue.name} on ${format(selectedDate, 'PPP')}.`,
+      variant: 'default'
+    });
+    setSelectedDate(undefined); // Reset date
+    setSelectedPayment(null);
   }
 
   return (
@@ -163,25 +177,44 @@ export default function VenueDetailPage() {
                 />
               </div>
               <div className="md:w-1/3">
-                  <div className="p-4 bg-secondary/50 rounded-lg h-full flex flex-col justify-center">
+                  <div className="p-4 bg-secondary/50 rounded-lg h-full flex flex-col justify-center space-y-2">
                     <p className="text-sm font-medium text-muted-foreground">Hall Type</p>
-                    <p className="text-lg font-semibold mb-3">{venue.hallType}</p>
+                    <p className="text-lg font-semibold">{venue.hallType}</p>
                     
                     <p className="text-sm font-medium text-muted-foreground">Base Cost</p>
-                    <p className="text-lg font-semibold mb-3">₹{venue.baseCost.toLocaleString('en-IN')}</p>
+                    <p className="text-lg font-semibold">₹{venue.baseCost.toLocaleString('en-IN')}</p>
                     
                     {selectedDate && <>
                       <p className="text-sm font-medium text-muted-foreground">18% GST/Tax</p>
-                      <p className="text-lg font-semibold mb-3">₹{(finalCost - venue.baseCost).toLocaleString('en-IN')}</p>
+                      <p className="text-lg font-semibold">₹{tax.toLocaleString('en-IN')}</p>
+                      
+                       <div className="border-t border-border my-1"></div>
+
+                       <div className="p-3 bg-accent/20 rounded-md text-accent-foreground">
+                        <p className="text-sm font-bold flex items-center gap-1"><Tag className="h-4 w-4"/> First Booking Offer</p>
+                        <p className="text-lg font-bold text-accent">- ₹{discount.toLocaleString('en-IN')} (15%)</p>
+                       </div>
                     </>}
 
-                    <div className="border-t border-border my-2"></div>
+                    <div className="border-t border-border my-1"></div>
                     
                     <p className="text-sm font-bold text-primary">Total Estimated Cost</p>
                     <p className="text-2xl font-bold text-primary">₹{finalCost.toLocaleString('en-IN')}</p>
                   </div>
               </div>
             </CardContent>
+            {selectedDate && (
+                <CardContent className="space-y-4">
+                  <div>
+                     <h4 className="text-md font-semibold mb-3 text-center">Choose a Payment Method</h4>
+                     <div className="grid grid-cols-3 gap-2">
+                        <Button variant={selectedPayment === 'card' ? 'default' : 'outline'} onClick={() => setSelectedPayment('card')}><CreditCard /> Card</Button>
+                        <Button variant={selectedPayment === 'upi' ? 'default' : 'outline'} onClick={() => setSelectedPayment('upi')}><IndianRupee/> UPI</Button>
+                        <Button variant={selectedPayment === 'netbanking' ? 'default' : 'outline'} onClick={() => setSelectedPayment('netbanking')}><Landmark/> Net Banking</Button>
+                     </div>
+                  </div>
+                </CardContent>
+            )}
             <CardFooter>
               <Button onClick={handleBooking} className="w-full" size="lg" disabled={!selectedDate}>
                 {selectedDate ? `Book for ${format(selectedDate, 'PPP')}` : 'Select a Date'}
