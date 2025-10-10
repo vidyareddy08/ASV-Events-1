@@ -4,8 +4,8 @@ import { Toaster } from '@/components/ui/toaster';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'FlowForm',
-  description: 'Effortless Forms, Seamless Flow',
+  title: 'Hyderabad Venues',
+  description: 'Find and book the perfect venue for your next event in Hyderabad.',
 };
 
 export default function RootLayout({

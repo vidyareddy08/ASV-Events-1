@@ -7,18 +7,18 @@ import { CheckCircle, MapPin } from 'lucide-react';
 const jobOpenings = [
   {
     title: 'Senior Frontend Engineer',
-    location: 'Remote',
-    description: 'We are looking for an experienced Frontend Engineer to help build the next generation of our form builder. You will work with React, Next.js, and TypeScript to create a fast, intuitive, and accessible user experience.',
+    location: 'Hyderabad, IN',
+    description: 'We are looking for an experienced Frontend Engineer to help build the best venue booking platform in Hyderabad. You will work with React, Next.js, and TypeScript to create a fast, intuitive, and accessible user experience.',
   },
   {
-    title: 'Product Designer',
-    location: 'New York, NY',
-    description: 'Join our design team to shape the future of FlowForm. You will be responsible for user research, wireframing, prototyping, and creating high-fidelity designs for new features and improvements.',
+    title: 'Business Development Manager',
+    location: 'Hyderabad, IN',
+    description: 'Join our team to build partnerships with the best venues across Hyderabad. You will be responsible for sourcing, negotiating, and onboarding new event spaces to our platform.',
   },
   {
-    title: 'DevOps Specialist',
-    location: 'Remote',
-    description: 'We need a DevOps Specialist to manage our cloud infrastructure, optimize our CI/CD pipelines, and ensure the reliability and security of our platform. Experience with AWS, Docker, and Kubernetes is a must.',
+    title: 'Customer Support Specialist',
+    location: 'Remote (Hyderabad-based)',
+    description: 'We need a customer support specialist to help our users have a smooth booking experience. You will be the first point of contact for user queries and issues.',
   },
 ];
 
@@ -35,7 +35,7 @@ export default function CareersPage() {
       <header className="text-center mb-16">
         <h1 className="text-4xl md:text-5xl font-bold font-headline text-primary">Join Our Team</h1>
         <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
-          We're building the future of data collection. Be a part of our journey to make forms better for everyone.
+          We're building the future of event booking in Hyderabad. Be a part of our journey to make finding the perfect venue easier for everyone.
         </p>
       </header>
       

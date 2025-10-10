@@ -42,7 +42,7 @@ export default function ContactPage() {
       <header className="text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-bold font-headline text-primary">Contact Us</h1>
         <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
-          Have a question or want to work with us? Drop us a line.
+          Have a question about a venue or want to partner with us? Drop us a line.
         </p>
       </header>
 
@@ -96,21 +96,21 @@ export default function ContactPage() {
               <MapPin className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
               <div>
                 <h4 className="font-semibold">Our Office</h4>
-                <p className="text-muted-foreground">123 FlowForm Lane, Innovation City, 54321</p>
+                <p className="text-muted-foreground">123 Jubilee Hills, Hyderabad, 500033</p>
               </div>
             </div>
              <div className="flex items-start gap-4">
               <Mail className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
               <div>
                 <h4 className="font-semibold">Email Us</h4>
-                <p className="text-muted-foreground">hello@flowform.dev</p>
+                <p className="text-muted-foreground">hello@hyderabadvenues.dev</p>
               </div>
             </div>
              <div className="flex items-start gap-4">
               <Phone className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
               <div>
                 <h4 className="font-semibold">Call Us</h4>
-                <p className="text-muted-foreground">(123) 456-7890</p>
+                <p className="text-muted-foreground">(040) 456-7890</p>
               </div>
             </div>
           </div>

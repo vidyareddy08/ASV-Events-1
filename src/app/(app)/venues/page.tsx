@@ -10,10 +10,6 @@ import { ArrowRight, MapPin } from 'lucide-react';
 
 const locations = [
   'All',
-  'Mumbai (South)',
-  'Delhi (NCR)',
-  'Bengaluru (Central)',
-  'Chennai (North)',
   'Hyderabad (North)',
   'Hyderabad (South)',
   'Hyderabad (East)',
@@ -33,10 +29,10 @@ export default function VenuesPage() {
     <div className="container mx-auto py-12 px-4 md:px-6">
       <header className="text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-bold font-headline text-primary">
-          Find Your Perfect Venue
+          Find Your Perfect Venue in Hyderabad
         </h1>
         <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
-          Explore our curated selection of exquisite halls for your next event.
+          Explore our curated selection of exquisite halls and open spaces for your next birthday, party, or event.
         </p>
       </header>
 

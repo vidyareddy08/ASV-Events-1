@@ -49,7 +49,7 @@ export default function LoginPage() {
         </div>
         <Card className="shadow-2xl rounded-xl">
             <CardHeader className="text-center">
-            <CardTitle className="text-3xl font-headline">FlowForm</CardTitle>
+            <CardTitle className="text-3xl font-headline">Hyderabad Venues</CardTitle>
             <CardDescription>Welcome back! Please sign in to continue.</CardDescription>
             </CardHeader>
             <CardContent>

@@ -20,9 +20,9 @@ export default function GalleryPage() {
   return (
     <div className="container mx-auto py-12 px-4 md:px-6">
       <header className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold font-headline text-primary">Gallery</h1>
+        <h1 className="text-4xl md:text-5xl font-bold font-headline text-primary">Venue Gallery</h1>
         <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
-          A collection of moments and designs that inspire our work at FlowForm.
+          A collection of beautiful event spaces available for booking in Hyderabad.
         </p>
       </header>
 

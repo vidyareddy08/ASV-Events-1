@@ -11,18 +11,18 @@ interface Feature {
 const features: Feature[] = [
   {
     icon: Palette,
-    title: 'Intuitive Drag & Drop Builder',
-    description: 'Design beautiful, complex forms without writing a single line of code. Our visual editor makes form creation a breeze.',
+    title: 'Simple Search & Filter',
+    description: 'Easily find the perfect venue with our intuitive search and location-based filters, designed specifically for Hyderabad.',
   },
   {
     icon: Layers,
-    title: 'Conditional Logic & Workflows',
-    description: 'Create dynamic forms that react to user input. Show or hide fields, send emails, and trigger workflows based on responses.',
+    title: 'Instant Availability Check',
+    description: 'View real-time availability for venues with our clear and simple booking calendar. No more back-and-forth calls.',
   },
   {
     icon: Bot,
-    title: 'AI-Powered Insights',
-    description: 'Go beyond data collection. Our AI analyzes submission patterns and provides actionable insights to optimize your forms and processes.',
+    title: 'Transparent Pricing',
+    description: 'Get instant cost estimates including all taxes. What you see is what you pay, with no hidden fees.',
   },
 ];
 
@@ -30,9 +30,9 @@ export default function FeaturesPage() {
   return (
     <div className="container mx-auto py-12 px-4 md:px-6">
       <header className="text-center mb-16">
-        <h1 className="text-4xl md:text-5xl font-bold font-headline text-primary">Powerful Features</h1>
+        <h1 className="text-4xl md:text-5xl font-bold font-headline text-primary">Platform Features</h1>
         <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
-          Everything you need to build forms that convert, engage, and inform.
+          Everything you need to book the perfect venue for your event in Hyderabad.
         </p>
       </header>
       
