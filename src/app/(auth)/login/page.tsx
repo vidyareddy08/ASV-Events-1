@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Wind, Globe, Check, X } from 'lucide-react';
+import { Wind, Globe } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
@@ -20,15 +20,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from '@/hooks/use-toast';
-import { cn } from '@/lib/utils';
 
 // Schemas remain the same
 const passwordValidation = z.string()
-  .min(8, { message: 'Password must be at least 8 characters.' })
-  .regex(/[A-Z]/, { message: 'Password must contain at least one uppercase letter.' })
-  .regex(/[a-z]/, { message: 'Password must contain at least one lowercase letter.' })
-  .regex(/[0-9]/, { message: 'Password must contain at least one number.' })
-  .regex(/[^A-Za-z0-9]/, { message: 'Password must contain at least one special character.' });
+  .min(8, 'Password must be at least 8 characters.')
+  .regex(/[A-Z]/, 'Password must contain at least one uppercase letter.')
+  .regex(/[a-z]/, 'Password must contain at least one lowercase letter.')
+  .regex(/[0-9]/, 'Password must contain at least one number.')
+  .regex(/[^A-Za-z0-9]/, 'Password must contain at least one special character.');
 
 const signupSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email address.' }),
@@ -112,15 +111,6 @@ function LoginForm({ onSwitchToSignup, initialEmail }: { onSwitchToSignup: () =>
   );
 }
 
-const passwordRules = [
-    { text: 'At least 8 characters', regex: /.{8,}/ },
-    { text: 'At least one uppercase letter', regex: /[A-Z]/ },
-    { text: 'At least one lowercase letter', regex: /[a-z]/ },
-    { text: 'At least one number', regex: /[0-9]/ },
-    { text: 'At least one special character', regex: /[^A-Za-z0-9]/ },
-];
-
-
 // SignupForm Component
 function SignupForm({ onSwitchToLogin }: { onSwitchToLogin: (email: string) => void; }) {
   const { signup } = useAuth();
@@ -131,8 +121,6 @@ function SignupForm({ onSwitchToLogin }: { onSwitchToLogin: (email: string) => v
     defaultValues: { email: '', password: '', confirmPassword: ''},
     mode: 'onTouched',
   });
-
-  const passwordValue = form.watch('password');
 
   function onSubmit(data: SignupFormValues) {
     const success = signup(data.email, data.password);
@@ -174,18 +162,6 @@ function SignupForm({ onSwitchToLogin }: { onSwitchToLogin: (email: string) => v
                 <FormMessage />
               </FormItem>
             )} />
-
-            <div className="space-y-2 text-sm">
-                {passwordRules.map((rule, i) => {
-                    const isValid = rule.regex.test(passwordValue || '');
-                    return (
-                        <div key={i} className={cn("flex items-center gap-2", isValid ? 'text-green-600' : 'text-muted-foreground')}>
-                           {isValid ? <Check size={16} /> : <X size={16} />} 
-                           <span>{rule.text}</span>
-                        </div>
-                    )
-                })}
-            </div>
 
             <FormField control={form.control} name="confirmPassword" render={({ field }) => (
               <FormItem>
