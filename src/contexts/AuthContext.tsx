@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setIsAuthenticated(true);
       }
     } catch (error) {
-      console.error('Could not access localStorage', error);
+      console.error('Could not access localStorage on initial load', error);
     }
     setIsLoading(false);
   }, []);
@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
       return false;
     } catch (error) {
-       console.error('Could not access localStorage', error);
+       console.error('Could not access localStorage during login', error);
        return false;
     }
   }, [router]);
@@ -62,14 +62,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       if (storedUsers[email]) {
         return false; // User already exists
       }
-      if (!password) { // Ensure password is not undefined
-          return false;
+      if (!password) {
+          return false; // Password is required
       }
       storedUsers[email] = password;
       localStorage.setItem('users', JSON.stringify(storedUsers));
       return true;
     } catch (error) {
-      console.error('Could not access localStorage', error);
+      console.error('Could not access localStorage during signup', error);
       return false;
     }
   }, []);
@@ -81,7 +81,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setIsAuthenticated(false);
       router.push('/login');
     } catch (error) {
-      console.error('Could not access localStorage', error);
+      console.error('Could not access localStorage during logout', error);
     }
   }, [router]);
 
