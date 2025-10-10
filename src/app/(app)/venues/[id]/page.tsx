@@ -1,6 +1,6 @@
 
 'use client';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { venues } from '@/lib/venue-data';
 import Image from 'next/image';
