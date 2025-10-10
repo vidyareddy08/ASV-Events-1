@@ -83,6 +83,150 @@
       "description": "Team member 4",
       "imageUrl": "https://picsum.photos/seed/t4/200/200",
       "imageHint": "person portrait"
+    },
+    {
+      "id": "v5a",
+      "description": "Nizami Palace Image 1",
+      "imageUrl": "https://picsum.photos/seed/v5a/800/450",
+      "imageHint": "event hall"
+    },
+    {
+      "id": "v5b",
+      "description": "Nizami Palace Image 2",
+      "imageUrl": "https://picsum.photos/seed/v5b/800/450",
+      "imageHint": "wedding decoration"
+    },
+    {
+      "id": "v5c",
+      "description": "Nizami Palace Image 3",
+      "imageUrl": "https://picsum.photos/seed/v5c/800/450",
+      "imageHint": "party lights"
+    },
+    {
+      "id": "v10a",
+      "description": "Hi-Tech Convention Image 1",
+      "imageUrl": "https://picsum.photos/seed/v10a/800/450",
+      "imageHint": "conference room"
+    },
+    {
+      "id": "v10b",
+      "description": "Hi-Tech Convention Image 2",
+      "imageUrl": "https://picsum.photos/seed/v10b/800/450",
+      "imageHint": "audience seating"
+    },
+    {
+      "id": "v10c",
+      "description": "Hi-Tech Convention Image 3",
+      "imageUrl": "https://picsum.photos/seed/v10c/800/450",
+      "imageHint": "stage presentation"
+    },
+    {
+      "id": "v15a",
+      "description": "Charminar Courtyard Image 1",
+      "imageUrl": "https://picsum.photos/seed/v15a/800/450",
+      "imageHint": "outdoor event"
+    },
+    {
+      "id": "v15b",
+      "description": "Charminar Courtyard Image 2",
+      "imageUrl": "https://picsum.photos/seed/v15b/800/450",
+      "imageHint": "garden wedding"
+    },
+    {
+      "id": "v15c",
+      "description": "Charminar Courtyard Image 3",
+      "imageUrl": "https://picsum.photos/seed/v15c/800/450",
+      "imageHint": "evening party"
+    },
+    {
+      "id": "v16a",
+      "description": "Golkonda Fort Lawns Image 1",
+      "imageUrl": "https://picsum.photos/seed/v16a/800/450",
+      "imageHint": "green lawn"
+    },
+    {
+      "id": "v16b",
+      "description": "Golkonda Fort Lawns Image 2",
+      "imageUrl": "https://picsum.photos/seed/v16b/800/450",
+      "imageHint": "party tent"
+    },
+    {
+      "id": "v17a",
+      "description": "Secunderabad Club Image 1",
+      "imageUrl": "https://picsum.photos/seed/v17a/800/450",
+      "imageHint": "classic hall"
+    },
+    {
+      "id": "v17b",
+      "description": "Secunderabad Club Image 2",
+      "imageUrl": "https://picsum.photos/seed/v17b/800/450",
+      "imageHint": "banquet setup"
+    },
+    {
+      "id": "v17c",
+      "description": "Secunderabad Club Image 3",
+      "imageUrl": "https://picsum.photos/seed/v17c/800/450",
+      "imageHint": "elegant interior"
+    },
+    {
+      "id": "v18a",
+      "description": "Necklace Road Gardens Image 1",
+      "imageUrl": "https://picsum.photos/seed/v18a/800/450",
+      "imageHint": "lakeside view"
+    },
+    {
+      "id": "v18b",
+      "description": "Necklace Road Gardens Image 2",
+      "imageUrl": "https://picsum.photos/seed/v18b/800/450",
+      "imageHint": "night lights"
+    },
+    {
+      "id": "v19a",
+      "description": "Ramoji Film City Events Image 1",
+      "imageUrl": "https://picsum.photos/seed/v19a/800/450",
+      "imageHint": "film set"
+    },
+    {
+      "id": "v19b",
+      "description": "Ramoji Film City Events Image 2",
+      "imageUrl": "https://picsum.photos/seed/v19b/800/450",
+      "imageHint": "grand entrance"
+    },
+    {
+      "id": "v19c",
+      "description": "Ramoji Film City Events Image 3",
+      "imageUrl": "https://picsum.photos/seed/v19c/800/450",
+      "imageHint": "auditorium stage"
+    },
+    {
+      "id": "v20a",
+      "description": "Begumpet Airport Lawns Image 1",
+      "imageUrl": "https://picsum.photos/seed/v20a/800/450",
+      "imageHint": "open field"
+    },
+    {
+      "id": "v20b",
+      "description": "Begumpet Airport Lawns Image 2",
+      "imageUrl": "https://picsum.photos/seed/v20b/800/450",
+      "imageHint": "runway view"
+    },
+    {
+      "id": "v20c",
+      "description": "Begumpet Airport Lawns Image 3",
+      "imageUrl": "https://picsum.photos/seed/v20c/800/450",
+      "imageHint": "evening gathering"
+    },
+    {
+      "id": "v21a",
+      "description": "LB Nagar Banquet Image 1",
+      "imageUrl": "https://picsum.photos/seed/v21a/800/450",
+      "imageHint": "banquet seating"
+    },
+    {
+      "id": "v21b",
+      "description": "LB Nagar Banquet Image 2",
+      "imageUrl": "https://picsum.photos/seed/v21b/800/450",
+      "imageHint": "stage decor"
     }
   ]
 }

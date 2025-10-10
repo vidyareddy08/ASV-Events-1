@@ -1,3 +1,13 @@
+import { PlaceHolderImages } from './placeholder-images';
+
+const getImage = (id: string) => {
+    const img = PlaceHolderImages.find(p => p.id === id);
+    if (!img) {
+        // Return a default or throw an error
+        return 'https://placehold.co/800x450';
+    }
+    return img.imageUrl;
+}
 
 export const venues = [
   {
@@ -5,11 +15,7 @@ export const venues = [
     name: 'Nizami Palace',
     location: 'Hyderabad (West)',
     hallType: 'Banquet Hall',
-    images: [
-      'https://picsum.photos/seed/v5a/800/450',
-      'https://picsum.photos/seed/v5b/800/450',
-      'https://picsum.photos/seed/v5c/800/450',
-    ],
+    images: [getImage('v5a'), getImage('v5b'), getImage('v5c')],
     baseCost: 220000,
     bookedDates: ['2024-08-30'],
     supportedEvents: ['Marriages (Weddings)', 'Sangeeths', 'Corporate Events', 'General Parties/Gatherings'],
@@ -19,11 +25,7 @@ export const venues = [
     name: 'Hi-Tech Convention',
     location: 'Hyderabad (Central)',
     hallType: 'Auditorium',
-    images: [
-      'https://picsum.photos/seed/v10a/800/450',
-      'https://picsum.photos/seed/v10b/800/450',
-      'https://picsum.photos/seed/v10c/800/450',
-    ],
+    images: [getImage('v10a'), getImage('v10b'), getImage('v10c')],
     baseCost: 110000,
     bookedDates: ['2024-09-25', '2024-09-26'],
     supportedEvents: ['Corporate Events', 'Conferences', 'Birthday Parties'],
@@ -33,11 +35,7 @@ export const venues = [
     name: 'Charminar Courtyard',
     location: 'Hyderabad (South)',
     hallType: 'Open Space',
-    images: [
-      'https://picsum.photos/seed/v15a/800/450',
-      'https://picsum.photos/seed/v15b/800/450',
-      'https://picsum.photos/seed/v15c/800/450',
-    ],
+    images: [getImage('v15a'), getImage('v15b'), getImage('v15c')],
     baseCost: 240000,
     bookedDates: ['2024-08-29', '2024-09-29'],
     supportedEvents: ['Marriages (Weddings)', 'Sangeeths', 'General Parties/Gatherings', 'Night Parties'],
@@ -47,10 +45,7 @@ export const venues = [
     name: 'Golkonda Fort Lawns',
     location: 'Hyderabad (West)',
     hallType: 'Party Lawn',
-    images: [
-      'https://picsum.photos/seed/v16a/800/450',
-      'https://picsum.photos/seed/v16b/800/450',
-    ],
+    images: [getImage('v16a'), getImage('v16b')],
     baseCost: 180000,
     bookedDates: ['2024-09-02', '2024-09-03'],
     supportedEvents: ['Birthday Parties', 'General Parties/Gatherings', 'Sangeeths'],
@@ -60,11 +55,7 @@ export const venues = [
     name: 'Secunderabad Club',
     location: 'Hyderabad (North)',
     hallType: 'Banquet Hall',
-    images: [
-      'https://picsum.photos/seed/v17a/800/450',
-      'https://picsum.photos/seed/v17b/800/450',
-      'https://picsum.photos/seed/v17c/800/450',
-    ],
+    images: [getImage('v17a'), getImage('v17b'), getImage('v17c')],
     baseCost: 210000,
     bookedDates: ['2024-09-08'],
     supportedEvents: ['Marriages (Weddings)', 'Corporate Events', 'General Parties/Gatherings'],
@@ -74,10 +65,7 @@ export const venues = [
     name: 'Necklace Road Gardens',
     location: 'Hyderabad (Central)',
     hallType: 'Open Space',
-    images: [
-      'https://picsum.photos/seed/v18a/800/450',
-      'https://picsum.photos/seed/v18b/800/450',
-    ],
+    images: [getImage('v18a'), getImage('v18b')],
     baseCost: 150000,
     bookedDates: ['2024-08-28', '2024-09-18'],
     supportedEvents: ['Birthday Parties', 'General Parties/Gatherings', 'Night Parties'],
@@ -87,11 +75,7 @@ export const venues = [
     name: 'Ramoji Film City Events',
     location: 'Hyderabad (East)',
     hallType: 'Auditorium',
-    images: [
-      'https://picsum.photos/seed/v19a/800/450',
-      'https://picsum.photos/seed/v19b/800/450',
-      'https://picsum.photos/seed/v19c/800/450',
-    ],
+    images: [getImage('v19a'), getImage('v19b'), getImage('v19c')],
     baseCost: 290000,
     bookedDates: ['2024-09-20', '2024-09-21'],
     supportedEvents: ['Corporate Events', 'Marriages (Weddings)', 'Sangeeths'],
@@ -101,11 +85,7 @@ export const venues = [
     name: 'Begumpet Airport Lawns',
     location: 'Hyderabad (North)',
     hallType: 'Party Lawn',
-    images: [
-      'https://picsum.photos/seed/v20a/800/450',
-      'https://picsum.photos/seed/v20b/800/450',
-      'https://picsum.photos/seed/v20c/800/450',
-    ],
+    images: [getImage('v20a'), getImage('v20b'), getImage('v20c')],
     baseCost: 110000,
     bookedDates: ['2024-09-25', '2024-09-26'],
     supportedEvents: ['Birthday Parties', 'Night Parties', 'General Parties/Gatherings'],
@@ -115,10 +95,7 @@ export const venues = [
     name: 'LB Nagar Banquet',
     location: 'Hyderabad (East)',
     hallType: 'Banquet Hall',
-    images: [
-      'https://picsum.photos/seed/v21a/800/450',
-      'https://picsum.photos/seed/v21b/800/450',
-    ],
+    images: [getImage('v21a'), getImage('v21b')],
     baseCost: 95000,
     bookedDates: ['2024-09-15', '2024-09-16'],
     supportedEvents: ['Birthday Parties', 'General Parties/Gatherings', 'Corporate Events'],
