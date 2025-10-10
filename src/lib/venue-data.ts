@@ -1,3 +1,4 @@
+
 export const venues = [
   {
     id: 'venue-05',
@@ -11,6 +12,7 @@ export const venues = [
     ],
     baseCost: 220000,
     bookedDates: ['2024-08-30'],
+    supportedEvents: ['Marriages (Weddings)', 'Sangeeths', 'Corporate Events', 'General Parties/Gatherings'],
   },
   {
     id: 'venue-10',
@@ -24,6 +26,7 @@ export const venues = [
     ],
     baseCost: 110000,
     bookedDates: ['2024-09-25', '2024-09-26'],
+    supportedEvents: ['Corporate Events', 'Conferences', 'Birthday Parties'],
   },
   {
     id: 'venue-15',
@@ -37,6 +40,7 @@ export const venues = [
     ],
     baseCost: 240000,
     bookedDates: ['2024-08-29', '2024-09-29'],
+    supportedEvents: ['Marriages (Weddings)', 'Sangeeths', 'General Parties/Gatherings', 'Night Parties'],
   },
   {
     id: 'venue-16',
@@ -49,6 +53,7 @@ export const venues = [
     ],
     baseCost: 180000,
     bookedDates: ['2024-09-02', '2024-09-03'],
+    supportedEvents: ['Birthday Parties', 'General Parties/Gatherings', 'Sangeeths'],
   },
   {
     id: 'venue-17',
@@ -62,6 +67,7 @@ export const venues = [
     ],
     baseCost: 210000,
     bookedDates: ['2024-09-08'],
+    supportedEvents: ['Marriages (Weddings)', 'Corporate Events', 'General Parties/Gatherings'],
   },
   {
     id: 'venue-18',
@@ -74,6 +80,7 @@ export const venues = [
     ],
     baseCost: 150000,
     bookedDates: ['2024-08-28', '2024-09-18'],
+    supportedEvents: ['Birthday Parties', 'General Parties/Gatherings', 'Night Parties'],
   },
   {
     id: 'venue-19',
@@ -87,6 +94,7 @@ export const venues = [
     ],
     baseCost: 290000,
     bookedDates: ['2024-09-20', '2024-09-21'],
+    supportedEvents: ['Corporate Events', 'Marriages (Weddings)', 'Sangeeths'],
   },
   {
     id: 'venue-20',
@@ -100,6 +108,7 @@ export const venues = [
     ],
     baseCost: 110000,
     bookedDates: ['2024-09-25', '2024-09-26'],
+    supportedEvents: ['Birthday Parties', 'Night Parties', 'General Parties/Gatherings'],
   },
   {
     id: 'venue-21',
@@ -112,5 +121,6 @@ export const venues = [
     ],
     baseCost: 95000,
     bookedDates: ['2024-09-15', '2024-09-16'],
+    supportedEvents: ['Birthday Parties', 'General Parties/Gatherings', 'Corporate Events'],
   },
 ];

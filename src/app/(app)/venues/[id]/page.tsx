@@ -1,3 +1,4 @@
+
 'use client';
 import { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
@@ -20,8 +21,9 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import { addDays, format, isBefore } from 'date-fns';
-import { CheckCircle, XCircle } from 'lucide-react';
+import { CheckCircle, XCircle, PartyPopper } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 export default function VenueDetailPage() {
@@ -91,7 +93,18 @@ export default function VenueDetailPage() {
           <h1 className="text-3xl md:text-4xl font-bold font-headline text-primary mb-2">
             {venue.name}
           </h1>
-          <p className="text-lg text-muted-foreground mb-6">{venue.location}</p>
+          <p className="text-lg text-muted-foreground mb-4">{venue.location}</p>
+          
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold mb-2 flex items-center gap-2"><PartyPopper className="h-5 w-5 text-accent"/> Suitable for</h3>
+            <div className="flex flex-wrap gap-2">
+              {venue.supportedEvents.map(event => (
+                <Badge key={event} variant="secondary" className="font-normal">{event}</Badge>
+              ))}
+            </div>
+          </div>
+
+          <h3 className="text-lg font-semibold mb-2">Glimpses of Past Events</h3>
           <Carousel className="w-full rounded-xl overflow-hidden shadow-xl">
             <CarouselContent>
               {venue.images.map((img, index) => (
