@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/select";
 import { useToast } from '@/hooks/use-toast';
 
+// Schemas remain the same
 const passwordValidation = z.string()
   .min(8, { message: 'Password must be at least 8 characters.' })
   .regex(/[A-Z]/, { message: 'Password must contain at least one uppercase letter.' })
@@ -37,7 +38,6 @@ const signupSchema = z.object({
   path: ['confirmPassword'],
 });
 
-
 const loginSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email address.' }),
   password: z.string().min(1, { message: 'Password is required.' }),
@@ -45,6 +45,140 @@ const loginSchema = z.object({
 
 type SignupFormValues = z.infer<typeof signupSchema>;
 type LoginFormValues = z.infer<typeof loginSchema>;
+
+// LoginForm Component
+function LoginForm({ onSwitchToSignup, onSuccessfulLogin }: { onSwitchToSignup: () => void; onSuccessfulLogin: (email: string) => void; }) {
+  const { login } = useAuth();
+  const { toast } = useToast();
+  
+  const form = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: { email: '', password: '' },
+  });
+
+  function onSubmit(data: LoginFormValues) {
+    const success = login(data.email, data.password);
+    if (success) {
+      onSuccessfulLogin(data.email);
+    } else {
+      toast({
+        variant: 'destructive',
+        title: 'Login Failed',
+        description: 'Invalid email or password. Please try again.',
+      });
+    }
+  }
+
+  return (
+    <>
+      <CardHeader className="text-center">
+        <CardTitle className="text-3xl font-headline">Hyderabad Venues</CardTitle>
+        <CardDescription>Welcome back! Please sign in to continue.</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <FormField control={form.control} name="email" render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl><Input placeholder="user@domain.com" {...field} type="email" /></FormControl>
+                <FormMessage />
+              </FormItem>
+            )} />
+            <FormField control={form.control} name="password" render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl><Input placeholder="••••••••" {...field} type="password" /></FormControl>
+                <FormMessage />
+              </FormItem>
+            )} />
+            <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
+              {form.formState.isSubmitting ? 'Signing In...' : 'Sign In'}
+            </Button>
+          </form>
+        </Form>
+        <div className="text-center mt-4">
+          <Button variant="link" onClick={onSwitchToSignup} className="text-sm">
+            New user? Click here to sign up
+          </Button>
+        </div>
+      </CardContent>
+    </>
+  );
+}
+
+// SignupForm Component
+function SignupForm({ onSwitchToLogin }: { onSwitchToLogin: (email: string) => void; }) {
+  const { signup } = useAuth();
+  const { toast } = useToast();
+
+  const form = useForm<SignupFormValues>({
+    resolver: zodResolver(signupSchema),
+    defaultValues: { email: '', password: '', confirmPassword: ''},
+  });
+
+  function onSubmit(data: SignupFormValues) {
+    const success = signup(data.email, data.password);
+    if(success) {
+      toast({
+        title: 'Signup Successful',
+        description: 'You can now log in with your new account.',
+      });
+      onSwitchToLogin(data.email);
+    } else {
+      toast({
+        variant: 'destructive',
+        title: 'Signup Failed',
+        description: 'An account with this email already exists.',
+      });
+    }
+  }
+
+  return (
+    <>
+      <CardHeader className="text-center">
+        <CardTitle className="text-3xl font-headline">Hyderabad Venues</CardTitle>
+        <CardDescription>Create your account to book a venue.</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <FormField control={form.control} name="email" render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl><Input placeholder="user@domain.com" {...field} type="email" /></FormControl>
+                <FormMessage />
+              </FormItem>
+            )} />
+            <FormField control={form.control} name="password" render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl><Input placeholder="Create a password" {...field} type="password" /></FormControl>
+                <FormMessage />
+              </FormItem>
+            )} />
+            <FormField control={form.control} name="confirmPassword" render={({ field }) => (
+              <FormItem>
+                <FormLabel>Confirm Password</FormLabel>
+                <FormControl><Input placeholder="Re-enter password" {...field} type="password" /></FormControl>
+                <FormMessage />
+              </FormItem>
+            )} />
+            <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
+              {form.formState.isSubmitting ? 'Creating Account...' : 'Sign Up'}
+            </Button>
+          </form>
+        </Form>
+        <div className="text-center mt-4">
+          <Button variant="link" onClick={() => onSwitchToLogin('')} className="text-sm">
+            Already have an account? Sign in
+          </Button>
+        </div>
+      </CardContent>
+    </>
+  );
+}
+
 
 const indianLanguages = [
   { code: 'en', name: 'English' },
@@ -64,11 +198,11 @@ const indianLanguages = [
 
 
 export default function LoginPage() {
-  const { login, signup, isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth();
   const router = useRouter();
-  const { toast } = useToast();
   const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
   const [selectedLanguage, setSelectedLanguage] = useState('en');
+  const [initialEmail, setInitialEmail] = useState('');
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -76,52 +210,15 @@ export default function LoginPage() {
     }
   }, [isAuthenticated, router]);
   
-  const loginForm = useForm<LoginFormValues>({
-    resolver: zodResolver(loginSchema),
-    defaultValues: { email: '', password: '' },
-  });
-
-  const signupForm = useForm<SignupFormValues>({
-    resolver: zodResolver(signupSchema),
-    defaultValues: { email: '', password: '', confirmPassword: ''},
-  });
-
-  function onLoginSubmit(data: LoginFormValues) {
-    const success = login(data.email, data.password);
-    if (!success) {
-      toast({
-        variant: 'destructive',
-        title: 'Login Failed',
-        description: 'Invalid email or password. Please try again.',
-      });
-    }
-  }
+  const switchToSignup = () => {
+      setInitialEmail('');
+      setAuthMode('signup');
+  };
   
-  function onSignupSubmit(data: SignupFormValues) {
-    const success = signup(data.email, data.password);
-    if(success) {
-       toast({
-        title: 'Signup Successful',
-        description: 'You can now log in with your new account.',
-      });
+  const switchToLogin = (email: string) => {
+      setInitialEmail(email);
       setAuthMode('login');
-      loginForm.setValue('email', data.email);
-      signupForm.reset();
-    } else {
-       toast({
-        variant: 'destructive',
-        title: 'Signup Failed',
-        description: 'An account with this email already exists.',
-      });
-    }
-  }
-
-  const toggleAuthMode = () => {
-    loginForm.reset();
-    signupForm.reset();
-    setAuthMode(currentMode => currentMode === 'login' ? 'signup' : 'login');
-  }
-
+  };
 
   return (
     <div className="flex min-h-screen w-full items-center justify-center bg-background p-4">
@@ -147,71 +244,11 @@ export default function LoginPage() {
             </div>
         </div>
         <Card className="shadow-2xl rounded-xl">
-            <CardHeader className="text-center">
-              <CardTitle className="text-3xl font-headline">Hyderabad Venues</CardTitle>
-              <CardDescription>
-                {authMode === 'login' ? 'Welcome back! Please sign in to continue.' : 'Create your account to book a venue.'}
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
              {authMode === 'login' ? (
-                <Form {...loginForm}>
-                  <form onSubmit={loginForm.handleSubmit(onLoginSubmit)} className="space-y-4">
-                    <FormField control={loginForm.control} name="email" render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Email</FormLabel>
-                        <FormControl><Input placeholder="user@domain.com" {...field} type="email" /></FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )} />
-                    <FormField control={loginForm.control} name="password" render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Password</FormLabel>
-                        <FormControl><Input placeholder="••••••••" {...field} type="password" /></FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )} />
-                    <Button type="submit" className="w-full" disabled={loginForm.formState.isSubmitting}>
-                      {loginForm.formState.isSubmitting ? 'Signing In...' : 'Sign In'}
-                    </Button>
-                  </form>
-                </Form>
+                <LoginForm onSwitchToSignup={switchToSignup} onSuccessfulLogin={switchToLogin} />
               ) : (
-                 <Form {...signupForm}>
-                  <form onSubmit={signupForm.handleSubmit(onSignupSubmit)} className="space-y-4">
-                    <FormField control={signupForm.control} name="email" render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Email</FormLabel>
-                        <FormControl><Input placeholder="user@domain.com" {...field} type="email" /></FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )} />
-                    <FormField control={signupForm.control} name="password" render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Password</FormLabel>
-                        <FormControl><Input placeholder="Create a password" {...field} type="password" /></FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )} />
-                    <FormField control={signupForm.control} name="confirmPassword" render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Confirm Password</FormLabel>
-                        <FormControl><Input placeholder="Re-enter password" {...field} type="password" /></FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )} />
-                    <Button type="submit" className="w-full" disabled={signupForm.formState.isSubmitting}>
-                       {signupForm.formState.isSubmitting ? 'Creating Account...' : 'Sign Up'}
-                    </Button>
-                  </form>
-                </Form>
+                <SignupForm onSwitchToLogin={switchToLogin} />
               )}
-               <div className="text-center mt-4">
-                <Button variant="link" onClick={toggleAuthMode} className="text-sm">
-                  {authMode === 'login' ? "New user? Click here to sign up" : "Already have an account? Sign in"}
-                </Button>
-              </div>
-            </CardContent>
         </Card>
       </div>
     </div>
