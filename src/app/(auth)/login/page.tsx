@@ -106,6 +106,7 @@ export default function LoginPage() {
       });
       setAuthMode('login');
       loginForm.setValue('email', data.email);
+      signupForm.reset();
     } else {
        toast({
         variant: 'destructive',

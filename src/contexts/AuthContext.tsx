@@ -62,6 +62,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       if (storedUsers[email]) {
         return false; // User already exists
       }
+      if (!password) { // Ensure password is not undefined
+          return false;
+      }
       storedUsers[email] = password;
       localStorage.setItem('users', JSON.stringify(storedUsers));
       return true;
