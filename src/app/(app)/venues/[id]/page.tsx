@@ -22,8 +22,8 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { format, isBefore } from 'date-fns';
-import { CheckCircle, XCircle, PartyPopper, Tag, CreditCard, Landmark, IndianRupee } from 'lucide-react';
+import { format, isBefore, addMonths } from 'date-fns';
+import { CheckCircle, XCircle, PartyPopper, Tag, CreditCard, Landmark, IndianRupee, Star } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 export default function VenueDetailPage() {
@@ -69,8 +69,14 @@ export default function VenueDetailPage() {
   const baseCost = venue.baseCost;
   const tax = baseCost * 0.18;
   const totalBeforeDiscount = baseCost + tax;
-  const discount = totalBeforeDiscount * 0.15;
-  const finalCost = selectedDate ? totalBeforeDiscount - discount : baseCost;
+
+  const isEarlyBird = selectedDate && selectedDate >= addMonths(today, 1);
+  const discountPercentage = isEarlyBird ? 0.20 : 0.15;
+  const discountName = isEarlyBird ? 'Early Bird Offer' : 'First Booking Offer';
+  const discountIcon = isEarlyBird ? Star : Tag;
+
+  const discountAmount = totalBeforeDiscount * discountPercentage;
+  const finalCost = selectedDate ? totalBeforeDiscount - discountAmount : baseCost;
     
   const handleBooking = () => {
     if (!selectedDate) {
@@ -190,8 +196,8 @@ export default function VenueDetailPage() {
                        <div className="border-t border-border my-1"></div>
 
                        <div className="p-3 bg-accent/20 rounded-md text-accent-foreground">
-                        <p className="text-sm font-bold flex items-center gap-1"><Tag className="h-4 w-4"/> First Booking Offer</p>
-                        <p className="text-lg font-bold text-accent">- ₹{discount.toLocaleString('en-IN')} (15%)</p>
+                        <p className="text-sm font-bold flex items-center gap-1">{React.createElement(discountIcon, {className:"h-4 w-4"})} {discountName}</p>
+                        <p className="text-lg font-bold text-accent">- ₹{discountAmount.toLocaleString('en-IN')} ({(discountPercentage * 100).toFixed(0)}%)</p>
                        </div>
                     </>}
 
