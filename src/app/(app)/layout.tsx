@@ -16,26 +16,14 @@ export default function AppLayout({ children }: { children: ReactNode }) {
     }
   }, [isAuthenticated, isLoading, router]);
 
-  // While loading, show a spinner.
-  if (isLoading) {
+  if (isLoading || !isAuthenticated) {
     return (
       <div className="flex h-screen w-full items-center justify-center bg-background">
         <Loader2 className="h-16 w-16 animate-spin text-primary" />
       </div>
     );
   }
-
-  // If not authenticated and not loading, the useEffect has already initiated the redirect.
-  // We can show a loader while the redirect happens, or return null.
-  if (!isAuthenticated) {
-     return (
-      <div className="flex h-screen w-full items-center justify-center bg-background">
-        <Loader2 className="h-16 w-16 animate-spin text-primary" />
-      </div>
-    );
-  }
   
-  // If authenticated, render the app.
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
