@@ -1,6 +1,6 @@
 
 'use client';
-import React, { useState } from 'react';
+import React, 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { venues } from '@/lib/venue-data';
 import Image from 'next/image';
@@ -23,7 +23,7 @@ import {
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { format, isBefore, addMonths } from 'date-fns';
-import { CheckCircle, XCircle, PartyPopper, Tag, CreditCard, Landmark, IndianRupee, Star, CalendarCheck } from 'lucide-react';
+import { CheckCircle, XCircle, PartyPopper, Tag, CreditCard, Landmark, Star, CalendarCheck } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 export default function VenueDetailPage() {
@@ -33,8 +33,8 @@ export default function VenueDetailPage() {
   const venueId = params.id as string;
   const venue = venues.find((v) => v.id === venueId);
 
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>();
-  const [selectedPayment, setSelectedPayment] = useState<string | null>(null);
+  const [selectedDate, setSelectedDate] = React.useState<Date | undefined>();
+  const [selectedPayment, setSelectedPayment] = React.useState<string | null>(null);
 
   if (!venue) {
     return (
@@ -229,7 +229,7 @@ export default function VenueDetailPage() {
                      <h4 className="text-md font-semibold mb-3 text-center">Choose a Payment Method</h4>
                      <div className="grid grid-cols-3 gap-2">
                         <Button variant={selectedPayment === 'card' ? 'default' : 'outline'} onClick={() => setSelectedPayment('card')}><CreditCard /> Card</Button>
-                        <Button variant={selectedPayment === 'upi' ? 'default' : 'outline'} onClick={() => setSelectedPayment('upi')}><IndianRupee/> UPI</Button>
+                        <Button variant={selectedPayment === 'upi' ? 'default' : 'outline'} onClick={() => setSelectedPayment('upi')}>₹ UPI</Button>
                         <Button variant={selectedPayment === 'netbanking' ? 'default' : 'outline'} onClick={() => setSelectedPayment('netbanking')}><Landmark/> Net Banking</Button>
                      </div>
                   </div>
