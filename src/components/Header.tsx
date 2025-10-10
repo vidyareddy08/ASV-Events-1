@@ -10,6 +10,7 @@ import { useState } from 'react';
 
 const navLinks = [
   { href: '/venues', label: 'Venues' },
+  { href: '/pre-booking', label: 'Pre-booking' },
   { href: '/about', label: 'About' },
   { href: '/features', label: 'Features' },
   { href: '/services', label: 'List Your Venue' },

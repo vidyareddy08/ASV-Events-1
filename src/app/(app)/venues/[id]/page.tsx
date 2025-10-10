@@ -23,7 +23,7 @@ import {
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { format, isBefore, addMonths } from 'date-fns';
-import { CheckCircle, XCircle, PartyPopper, Tag, CreditCard, Landmark, IndianRupee, Star } from 'lucide-react';
+import { CheckCircle, XCircle, PartyPopper, Tag, CreditCard, Landmark, IndianRupee, Star, CalendarCheck } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 export default function VenueDetailPage() {
@@ -69,11 +69,26 @@ export default function VenueDetailPage() {
   const baseCost = venue.baseCost;
   const tax = baseCost * 0.18;
   const totalBeforeDiscount = baseCost + tax;
+  
+  let discountPercentage = 0.15;
+  let discountName = 'First Booking Offer';
+  let discountIcon = Tag;
 
-  const isEarlyBird = selectedDate && selectedDate >= addMonths(today, 1);
-  const discountPercentage = isEarlyBird ? 0.20 : 0.15;
-  const discountName = isEarlyBird ? 'Early Bird Offer' : 'First Booking Offer';
-  const discountIcon = isEarlyBird ? Star : Tag;
+  if (selectedDate) {
+    const twoMonthsFromNow = addMonths(today, 2);
+    const oneMonthFromNow = addMonths(today, 1);
+    const oneYearFromNow = addMonths(today, 12);
+
+    if (selectedDate >= twoMonthsFromNow && selectedDate <= oneYearFromNow) {
+      discountPercentage = 0.30; // 20% early bird + extra 10%
+      discountName = 'Super Early Bird';
+      discountIcon = CalendarCheck;
+    } else if (selectedDate >= oneMonthFromNow) {
+      discountPercentage = 0.20;
+      discountName = 'Early Bird Offer';
+      discountIcon = Star;
+    }
+  }
 
   const discountAmount = totalBeforeDiscount * discountPercentage;
   const finalCost = selectedDate ? totalBeforeDiscount - discountAmount : baseCost;
