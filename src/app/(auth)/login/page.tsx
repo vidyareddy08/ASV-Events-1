@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Wind, Globe } from 'lucide-react';
+import { Wind, Globe, Check, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
@@ -20,6 +20,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from '@/hooks/use-toast';
+import { cn } from '@/lib/utils';
 
 // Schemas remain the same
 const passwordValidation = z.string()
@@ -47,20 +48,24 @@ type SignupFormValues = z.infer<typeof signupSchema>;
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 // LoginForm Component
-function LoginForm({ onSwitchToSignup, onSuccessfulLogin }: { onSwitchToSignup: () => void; onSuccessfulLogin: (email: string) => void; }) {
+function LoginForm({ onSwitchToSignup, initialEmail }: { onSwitchToSignup: () => void; initialEmail?: string; }) {
   const { login } = useAuth();
   const { toast } = useToast();
   
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
-    defaultValues: { email: '', password: '' },
+    defaultValues: { email: initialEmail || '', password: '' },
   });
+
+  useEffect(() => {
+    if (initialEmail) {
+      form.setValue('email', initialEmail);
+    }
+  }, [initialEmail, form]);
 
   function onSubmit(data: LoginFormValues) {
     const success = login(data.email, data.password);
-    if (success) {
-      onSuccessfulLogin(data.email);
-    } else {
+    if (!success) {
       toast({
         variant: 'destructive',
         title: 'Login Failed',
@@ -107,6 +112,15 @@ function LoginForm({ onSwitchToSignup, onSuccessfulLogin }: { onSwitchToSignup: 
   );
 }
 
+const passwordRules = [
+    { text: 'At least 8 characters', regex: /.{8,}/ },
+    { text: 'At least one uppercase letter', regex: /[A-Z]/ },
+    { text: 'At least one lowercase letter', regex: /[a-z]/ },
+    { text: 'At least one number', regex: /[0-9]/ },
+    { text: 'At least one special character', regex: /[^A-Za-z0-9]/ },
+];
+
+
 // SignupForm Component
 function SignupForm({ onSwitchToLogin }: { onSwitchToLogin: (email: string) => void; }) {
   const { signup } = useAuth();
@@ -115,7 +129,10 @@ function SignupForm({ onSwitchToLogin }: { onSwitchToLogin: (email: string) => v
   const form = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchema),
     defaultValues: { email: '', password: '', confirmPassword: ''},
+    mode: 'onTouched',
   });
+
+  const passwordValue = form.watch('password');
 
   function onSubmit(data: SignupFormValues) {
     const success = signup(data.email, data.password);
@@ -157,6 +174,19 @@ function SignupForm({ onSwitchToLogin }: { onSwitchToLogin: (email: string) => v
                 <FormMessage />
               </FormItem>
             )} />
+
+            <div className="space-y-2 text-sm">
+                {passwordRules.map((rule, i) => {
+                    const isValid = rule.regex.test(passwordValue || '');
+                    return (
+                        <div key={i} className={cn("flex items-center gap-2", isValid ? 'text-green-600' : 'text-muted-foreground')}>
+                           {isValid ? <Check size={16} /> : <X size={16} />} 
+                           <span>{rule.text}</span>
+                        </div>
+                    )
+                })}
+            </div>
+
             <FormField control={form.control} name="confirmPassword" render={({ field }) => (
               <FormItem>
                 <FormLabel>Confirm Password</FormLabel>
@@ -245,7 +275,7 @@ export default function LoginPage() {
         </div>
         <Card className="shadow-2xl rounded-xl">
              {authMode === 'login' ? (
-                <LoginForm onSwitchToSignup={switchToSignup} onSuccessfulLogin={switchToLogin} />
+                <LoginForm onSwitchToSignup={switchToSignup} initialEmail={initialEmail} />
               ) : (
                 <SignupForm onSwitchToLogin={switchToLogin} />
               )}
