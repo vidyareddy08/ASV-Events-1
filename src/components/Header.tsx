@@ -13,7 +13,6 @@ const navLinks = [
   { href: '/pre-booking', label: 'Pre-booking' },
   { href: '/about', label: 'About' },
   { href: '/features', label: 'Features' },
-  { href: '/services', label: 'List Your Venue' },
   { href: '/gallery', label: 'Gallery' },
   { href: '/careers', label: 'Careers' },
   { href: '/contact', label: 'Contact' },
