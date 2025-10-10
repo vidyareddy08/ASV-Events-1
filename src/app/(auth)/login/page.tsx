@@ -117,9 +117,15 @@ export default function LoginPage() {
   }
 
   const toggleAuthMode = () => {
-    setAuthMode(authMode === 'login' ? 'signup' : 'login');
-    loginForm.reset();
-    signupForm.reset();
+    setAuthMode(currentMode => {
+        const newMode = currentMode === 'login' ? 'signup' : 'login';
+        if (newMode === 'login') {
+            signupForm.reset();
+        } else {
+            loginForm.reset();
+        }
+        return newMode;
+    });
   }
 
 
