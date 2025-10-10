@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 import { useState } from 'react';
 
 const navLinks = [
-  { href: '/', label: 'Home' },
+  { href: '/venues', label: 'Venues' },
   { href: '/about', label: 'About' },
   { href: '/features', label: 'Features' },
   { href: '/services', label: 'Services' },
@@ -47,7 +47,7 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-b">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
-        <Link href="/" className="flex items-center gap-2 font-bold text-lg text-primary font-headline">
+        <Link href="/venues" className="flex items-center gap-2 font-bold text-lg text-primary font-headline">
           <Wind className="h-6 w-6" />
           FlowForm
         </Link>
@@ -68,7 +68,7 @@ export default function Header() {
             <SheetContent side="right" className="w-[300px] sm:w-[350px] p-0">
               <div className="flex flex-col h-full">
                 <div className="p-6 border-b">
-                  <Link href="/" onClick={() => setSheetOpen(false)} className="flex items-center gap-2 font-bold text-lg text-primary font-headline">
+                  <Link href="/venues" onClick={() => setSheetOpen(false)} className="flex items-center gap-2 font-bold text-lg text-primary font-headline">
                     <Wind className="h-6 w-6" />
                     FlowForm
                   </Link>

@@ -30,6 +30,15 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/venues',
+        permanent: true,
+      },
+    ]
+  },
 };
 
 export default nextConfig;
