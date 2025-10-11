@@ -229,6 +229,18 @@
       "imageHint": "stage decor"
     },
     {
+      "id": "v22a",
+      "description": "Deccan Paradise Image 1",
+      "imageUrl": "https://picsum.photos/seed/v22a/800/450",
+      "imageHint": "elegant banquet"
+    },
+    {
+      "id": "v22b",
+      "description": "Deccan Paradise Image 2",
+      "imageUrl": "https://picsum.photos/seed/v22b/800/450",
+      "imageHint": "dining setup"
+    },
+    {
       "id": "concert1",
       "description": "Live music concert",
       "imageUrl": "https://picsum.photos/seed/c1/800/450",

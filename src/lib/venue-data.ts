@@ -52,6 +52,16 @@ export const venues = [
     supportedEvents: ['Marriages (Weddings)', 'Sangeeths', 'General Parties/Gatherings', 'Night Parties', 'Others'],
   },
   {
+    id: 'venue-22',
+    name: 'Deccan Paradise',
+    location: 'Hyderabad (South)',
+    hallType: 'Banquet Hall',
+    images: [getImage('v22a'), getImage('v22b')],
+    baseCost: 130000,
+    bookedDates: [],
+    supportedEvents: ['Marriages (Weddings)', 'Corporate Events', 'Birthday Parties', 'General Parties/Gatherings', 'Others'],
+  },
+  {
     id: 'venue-16',
     name: 'Golkonda Fort Lawns',
     location: 'Hyderabad (West)',
