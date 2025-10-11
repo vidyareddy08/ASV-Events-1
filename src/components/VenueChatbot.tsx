@@ -6,7 +6,8 @@ import { Input } from '@/components/ui/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Bot, MessageSquare, Send, X, Loader2, User } from 'lucide-react';
-import { askVenueAssistant } from '@/ai/flows/venue-chat-flow';
+import { askVenueAssistant, type VenueAssistantInput } from '@/ai/flows/venue-chat-flow';
+import { cn } from '@/lib/utils';
 
 type Message = {
   id: number;
@@ -28,13 +29,15 @@ export default function VenueChatbot() {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTo({
-        top: scrollAreaRef.current.scrollHeight,
-        behavior: 'smooth',
-      });
+    if (isOpen && scrollAreaRef.current) {
+      setTimeout(() => {
+        scrollAreaRef.current?.scrollTo({
+          top: scrollAreaRef.current.scrollHeight,
+          behavior: 'smooth',
+        });
+      }, 100);
     }
-  }, [messages]);
+  }, [messages, isOpen]);
 
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -46,11 +49,12 @@ export default function VenueChatbot() {
       sender: 'user',
     };
     setMessages((prev) => [...prev, userMessage]);
+    const currentInput = input;
     setInput('');
     setIsLoading(true);
 
     try {
-      const response = await askVenueAssistant({ query: input });
+      const response = await askVenueAssistant({ query: currentInput });
       const botMessage: Message = {
         id: Date.now() + 1,
         text: response,
@@ -74,7 +78,10 @@ export default function VenueChatbot() {
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
         <Button
-          className="fixed bottom-6 right-6 h-16 w-16 rounded-full shadow-lg"
+          className={cn(
+            "fixed bottom-6 right-6 h-16 w-16 rounded-full shadow-lg text-white bg-gradient-to-r from-primary to-accent transition-transform hover:scale-110",
+            !isOpen && "animate-pulse"
+          )}
           size="icon"
         >
           {isOpen ? <X className="h-8 w-8" /> : <MessageSquare className="h-8 w-8" />}
@@ -92,7 +99,7 @@ export default function VenueChatbot() {
             <Bot className="h-7 w-7" />
             <h3 className="font-bold text-lg">Venue Assistant</h3>
           </header>
-          <ScrollArea className="flex-grow p-4" ref={scrollAreaRef}>
+          <ScrollArea className="flex-grow p-4 bg-background/50" ref={scrollAreaRef}>
             <div className="space-y-4">
               {messages.map((message) => (
                 <div
@@ -102,7 +109,7 @@ export default function VenueChatbot() {
                   }`}
                 >
                   {message.sender === 'bot' && (
-                    <div className="p-2 bg-primary rounded-full text-primary-foreground">
+                    <div className="p-2 bg-primary rounded-full text-primary-foreground flex-shrink-0">
                       <Bot className="h-5 w-5" />
                     </div>
                   )}
@@ -116,7 +123,7 @@ export default function VenueChatbot() {
                     {message.text}
                   </div>
                    {message.sender === 'user' && (
-                    <div className="p-2 bg-secondary rounded-full text-secondary-foreground">
+                    <div className="p-2 bg-secondary rounded-full text-secondary-foreground flex-shrink-0">
                       <User className="h-5 w-5" />
                     </div>
                   )}
@@ -124,17 +131,17 @@ export default function VenueChatbot() {
               ))}
               {isLoading && (
                  <div className="flex items-start gap-3">
-                    <div className="p-2 bg-primary rounded-full text-primary-foreground">
+                    <div className="p-2 bg-primary rounded-full text-primary-foreground flex-shrink-0">
                       <Bot className="h-5 w-5" />
                     </div>
                     <div className="max-w-[75%] rounded-xl p-3 text-sm bg-card flex items-center">
-                        <Loader2 className="h-5 w-5 animate-spin"/>
+                        <Loader2 className="h-5 w-5 animate-spin text-primary"/>
                     </div>
                  </div>
               )}
             </div>
           </ScrollArea>
-          <footer className="p-4 border-t">
+          <footer className="p-4 border-t bg-background">
             <form onSubmit={handleSendMessage} className="flex items-center gap-2">
               <Input
                 value={input}
@@ -143,7 +150,7 @@ export default function VenueChatbot() {
                 className="flex-grow"
                 disabled={isLoading}
               />
-              <Button type="submit" size="icon" disabled={isLoading}>
+              <Button type="submit" size="icon" disabled={isLoading || !input.trim()}>
                 <Send className="h-5 w-5" />
                 <span className="sr-only">Send</span>
               </Button>
