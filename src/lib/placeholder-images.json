@@ -227,6 +227,42 @@
       "description": "LB Nagar Banquet Image 2",
       "imageUrl": "https://picsum.photos/seed/v21b/800/450",
       "imageHint": "stage decor"
+    },
+    {
+      "id": "concert1",
+      "description": "Live music concert",
+      "imageUrl": "https://picsum.photos/seed/c1/800/450",
+      "imageHint": "live music"
+    },
+    {
+      "id": "concert2",
+      "description": "Rock band performance",
+      "imageUrl": "https://picsum.photos/seed/c2/800/450",
+      "imageHint": "rock band"
+    },
+    {
+      "id": "concert3",
+      "description": "DJ night",
+      "imageUrl": "https://picsum.photos/seed/c3/800/450",
+      "imageHint": "dj party"
+    },
+    {
+      "id": "workshop1",
+      "description": "Photography workshop",
+      "imageUrl": "https://picsum.photos/seed/w1/800/450",
+      "imageHint": "camera lens"
+    },
+    {
+      "id": "workshop2",
+      "description": "Painting class",
+      "imageUrl": "https://picsum.photos/seed/w2/800/450",
+      "imageHint": "paint brushes"
+    },
+    {
+      "id": "workshop3",
+      "description": "Coding bootcamp",
+      "imageUrl": "https://picsum.photos/seed/w3/800/450",
+      "imageHint": "code screen"
     }
   ]
 }
