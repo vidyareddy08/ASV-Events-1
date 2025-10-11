@@ -1,13 +1,13 @@
+
 import { Card, CardContent } from '@/components/ui/card';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { CheckCircle, History, Target } from 'lucide-react';
 import Image from 'next/image';
 
 const teamMembers = [
-  { name: 'Alice Johnson', role: 'CEO & Founder', imageId: 'team1' },
-  { name: 'Bob Williams', role: 'CTO', imageId: 'team2' },
-  { name: 'Charlie Brown', role: 'Lead Designer', imageId: 'team3' },
-  { name: 'Diana Miller', role: 'Head of Marketing', imageId: 'team4' },
+  { name: 'Anushritha', role: 'Founder & CEO', imageId: 'team1' },
+  { name: 'Vidya', role: 'Founder & CTO', imageId: 'team2' },
+  { name: 'Sathvika', role: 'Founder & Head of Design', imageId: 'team3' },
 ];
 
 export default function AboutPage() {
@@ -59,7 +59,7 @@ export default function AboutPage() {
 
       <section>
         <h2 className="text-3xl md:text-4xl font-bold font-headline text-primary text-center mb-10">Meet the Team</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8">
           {teamMembers.map((member) => {
             const memberImage = teamImages.find(img => img.id === member.imageId);
             return (
@@ -72,7 +72,7 @@ export default function AboutPage() {
                       fill
                       className="object-cover"
                       data-ai-hint={memberImage.imageHint}
-                      sizes="(max-width: 768px) 50vw, 25vw"
+                      sizes="(max-width: 768px) 50vw, 33vw"
                     />
                   ) : <div className="w-full h-full bg-muted"></div>}
                 </div>
