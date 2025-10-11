@@ -41,4 +41,54 @@ export const eventManagers: EventManager[] = [
       'Specializes in decor and ambiance for high-end private events.',
     ],
   },
+  {
+    id: 'em-04',
+    name: 'Keerthana',
+    phone: '912-345-6789',
+    specializations: ['Luxury Weddings', 'Destination Events'],
+    portfolio: [
+      'Managed luxury destination weddings in Goa and Jaipur.',
+      'Expert in vendor negotiations and budget management.',
+    ],
+  },
+  {
+    id: 'em-05',
+    name: 'Virat',
+    phone: '923-456-7890',
+    specializations: ['Sports Events', 'Large-scale Gatherings'],
+    portfolio: [
+      'Organized post-match events for sporting leagues.',
+      'Handled logistics for large public gatherings and festivals.',
+    ],
+  },
+  {
+    id: 'em-06',
+    name: 'Rohit',
+    phone: '934-567-8901',
+    specializations: ['Corporate Offsites', 'Team Building'],
+    portfolio: [
+      'Curated engaging corporate offsites and retreats.',
+      'Specializes in creating unique team-building experiences.',
+    ],
+  },
+  {
+    id: 'em-07',
+    name: 'Hardik',
+    phone: '945-678-9012',
+    specializations: ['Night Parties', 'Concert Management'],
+    portfolio: [
+      'Managed high-energy night parties and club events.',
+      'Coordinated logistics for live music concerts and artist tours.',
+    ],
+  },
+  {
+    id: 'em-08',
+    name: 'Surya Kumar',
+    phone: '956-789-0123',
+    specializations: ['Product Launches', 'Brand Activations'],
+    portfolio: [
+      'Executed creative brand activation campaigns.',
+      'Orchestrated memorable product launch events for startups.',
+    ],
+  },
 ];
