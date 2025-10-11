@@ -12,7 +12,7 @@ import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
 import { venues } from '@/lib/venue-data';
 
-export const VenueAssistantInputSchema = z.object({
+const VenueAssistantInputSchema = z.object({
   query: z.string(),
 });
 
