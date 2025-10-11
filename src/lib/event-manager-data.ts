@@ -16,7 +16,8 @@ export const eventManagers: EventManager[] = [
     portfolio: [
       'Organized a 500-guest wedding at Nizami Palace.',
       'Managed a multi-day corporate summit at Hi-Tech Convention.',
-      'Coordinated a grand Sangeeth at Charminar Courtyard.',
+      'Coordinated a grand Sangeeth at Charminar Courtyard with 300+ attendees.',
+      'Planned and executed a luxury product launch for a top brand.',
     ],
   },
   {
@@ -26,8 +27,9 @@ export const eventManagers: EventManager[] = [
     specializations: ['Corporate Events', 'Conferences', 'Night Parties'],
     portfolio: [
       'Executed a product launch event for a major tech company.',
-      'Handled logistics for a 1000-person conference.',
-      'Curated a high-energy DJ night at Necklace Road Gardens.',
+      'Handled logistics for a 1000-person international conference.',
+      'Curated a high-energy DJ night at Necklace Road Gardens featuring a famous artist.',
+      'Managed a formal corporate awards ceremony for a multi-national company.',
     ],
   },
   {
@@ -36,9 +38,10 @@ export const eventManagers: EventManager[] = [
     phone: '765-432-1098',
     specializations: ['Birthday Parties', 'General Parties/Gatherings'],
     portfolio: [
-      'Designed and executed over 50 themed birthday parties.',
+      'Designed and executed over 100 themed birthday parties for all ages.',
       'Managed a large family gathering at Golkonda Fort Lawns.',
-      'Specializes in catering and entertainment coordination.',
+      'Specializes in catering and entertainment coordination for private events.',
+      'Organized a successful charity fundraiser with 200 attendees.',
     ],
   },
   {
@@ -48,8 +51,9 @@ export const eventManagers: EventManager[] = [
     specializations: ['Marriages (Weddings)', 'Night Parties', 'Sangeeths'],
     portfolio: [
       'Expert in destination weddings and large-scale celebrations.',
-      'Organized exclusive night parties with celebrity guests.',
-      'Known for innovative and modern event design concepts.',
+      'Organized exclusive night parties with celebrity guests at Ramoji Film City.',
+      'Known for innovative and modern event design concepts for Sangeeths.',
+      'Managed a high-profile wedding featured in a lifestyle magazine.',
     ],
   },
 ];
