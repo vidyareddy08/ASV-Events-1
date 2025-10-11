@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Bot, Layers, Palette, Users, Phone } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import { eventManagers } from '@/lib/event-manager-data';
 
 interface Feature {
   icon: LucideIcon;
@@ -24,13 +25,6 @@ const features: Feature[] = [
     title: 'Transparent Pricing',
     description: 'Get instant cost estimates including all taxes. What you see is what you pay, with no hidden fees.',
   },
-];
-
-const eventManagers = [
-  { name: 'Priya Sharma', phone: '987-654-3210' },
-  { name: 'Rahul Verma', phone: '876-543-2109' },
-  { name: 'Anjali Singh', phone: '765-432-1098' },
-  { name: 'Rohan Mehta', phone: '654-321-0987' },
 ];
 
 export default function FeaturesPage() {
