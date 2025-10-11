@@ -11,7 +11,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useToast } from '@/hooks/use-toast';
-import { MapPin } from 'lucide-react';
+import { Briefcase, IndianRupee, MapPin } from 'lucide-react';
 
 const applicationSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -20,6 +20,8 @@ const applicationSchema = z.object({
   education: z.string().min(2, { message: 'Please enter your educational background.' }),
   hasExperience: z.enum(['yes', 'no']),
   previousExperience: z.string().optional(),
+  resumeUrl: z.string().url({ message: 'Please enter a valid URL for your resume or portfolio.' }).optional().or(z.literal('')),
+  coverLetter: z.string().min(20, { message: 'Please provide a cover letter of at least 20 characters.' }),
 }).refine(data => {
   if (data.hasExperience === 'yes') {
     return data.previousExperience && data.previousExperience.length >= 10;
@@ -37,19 +39,22 @@ const jobOpenings = [
     id: 'job-01',
     title: 'Senior Frontend Engineer',
     location: 'Hyderabad, IN',
-    description: 'We are looking for an experienced Frontend Engineer to help build the best venue booking platform in Hyderabad. You will work with React, Next.js, and TypeScript to create a fast, intuitive, and accessible user experience.',
+    package: '₹18-25 LPA',
+    description: 'This is a critical role to shape the user experience of our platform. You will lead the development of new features, ensuring our interface is fast, intuitive, and accessible for thousands of users booking their dream events.',
   },
   {
     id: 'job-02',
     title: 'Business Development Manager',
     location: 'Hyderabad, IN',
-    description: 'Join our team to build partnerships with the best venues across Hyderabad. You will be responsible for sourcing, negotiating, and onboarding new event spaces to our platform.',
+    package: '₹15-22 LPA + Incentives',
+    description: 'As a key driver of our growth, you will forge strategic partnerships with top-tier venues across Hyderabad. Your work directly expands our inventory and solidifies our position as the market leader.',
   },
   {
     id: 'job-03',
     title: 'Customer Support Specialist',
     location: 'Remote (Hyderabad-based)',
-    description: 'We need a customer support specialist to help our users have a smooth booking experience. You will be the first point of contact for user queries and issues.',
+    package: '₹6-9 LPA',
+    description: 'You are the voice of Hyderabad Venues. This role is vital for ensuring a seamless and positive booking experience, directly impacting customer satisfaction and retention.',
   },
 ];
 
@@ -63,6 +68,8 @@ function ApplicationForm({ jobTitle, onApply }: { jobTitle: string; onApply: (va
       education: '',
       hasExperience: 'no',
       previousExperience: '',
+      resumeUrl: '',
+      coverLetter: '',
     },
   });
 
@@ -138,6 +145,20 @@ function ApplicationForm({ jobTitle, onApply }: { jobTitle: string; onApply: (va
               </FormItem>
             )} />
           )}
+          <FormField control={form.control} name="resumeUrl" render={({ field }) => (
+            <FormItem>
+              <FormLabel>Resume/Portfolio URL</FormLabel>
+              <FormControl><Input placeholder="https://linkedin.com/in/your-profile" {...field} /></FormControl>
+              <FormMessage />
+            </FormItem>
+          )} />
+          <FormField control={form.control} name="coverLetter" render={({ field }) => (
+            <FormItem>
+              <FormLabel>Cover Letter</FormLabel>
+              <FormControl><Textarea placeholder="Why are you a good fit for this role?" {...field} rows={5} /></FormControl>
+              <FormMessage />
+            </FormItem>
+          )} />
         </div>
         <DialogFooter>
           <DialogClose asChild><Button type="button" variant="outline">Cancel</Button></DialogClose>
@@ -178,11 +199,17 @@ export default function CareersPage() {
             <Card className="overflow-hidden rounded-xl shadow-md transition-shadow hover:shadow-xl">
               <CardHeader>
                 <CardTitle className="text-2xl font-headline">{job.title}</CardTitle>
-                <CardDescription className="flex items-center gap-2 pt-2 text-muted-foreground">
-                  <MapPin className="h-4 w-4" /> {job.location}
-                </CardDescription>
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2 text-muted-foreground">
+                  <div className="flex items-center gap-2">
+                    <MapPin className="h-4 w-4" /> {job.location}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <IndianRupee className="h-4 w-4" /> {job.package}
+                  </div>
+                </div>
               </CardHeader>
               <CardContent>
+                <h3 className="font-semibold text-primary mb-2 flex items-center gap-2"><Briefcase className="h-5 w-5"/>Role Importance</h3>
                 <p className="text-muted-foreground">{job.description}</p>
               </CardContent>
               <CardFooter>
@@ -191,7 +218,7 @@ export default function CareersPage() {
                   </DialogTrigger>
               </CardFooter>
             </Card>
-            <DialogContent className="sm:max-w-[480px]">
+            <DialogContent className="sm:max-w-xl">
                <ApplicationForm jobTitle={job.title} onApply={(values) => handleApply(values, job.title)} />
             </DialogContent>
           </Dialog>
