@@ -166,6 +166,17 @@ export default function VenueDetailPage() {
               ))}
             </div>
           </div>
+          
+          {(venue as any).previousEvents && (
+            <div className="mb-6">
+              <h3 className="text-lg font-semibold mb-2 flex items-center gap-2"><PartyPopper className="h-5 w-5 text-accent"/> Past Events Showcase</h3>
+              <ul className="list-disc list-inside text-muted-foreground space-y-1">
+                {(venue as any).previousEvents.map((event: string, index: number) => (
+                  <li key={index}>{event}</li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           <h3 className="text-lg font-semibold mb-2">Glimpses of Past Events</h3>
           <Carousel className="w-full rounded-xl overflow-hidden shadow-xl">
@@ -322,8 +333,7 @@ export default function VenueDetailPage() {
                      <div className="grid grid-cols-3 gap-2">
                         <Button variant={selectedPayment === 'card' ? 'default' : 'outline'} onClick={() => setSelectedPayment('card')}><CreditCard /> Card</Button>
                         <Button variant={selectedPayment === 'upi' ? 'default' : 'outline'} onClick={() => setSelectedPayment('upi')}>₹ UPI</Button>
-                        <Button variant={selectedPayment === 'netbanking' ? 'default' : 'outline'} onClick={() => setSelectedPayment('netbanking')}><Landmark/> Net Banking</Button>
-                     </div>
+                        <Button variant={selectedPayment === 'netbanking' ? 'default' : 'outline'} onClick={() => setSelectedPayment('netbanking')}><Landmark/> Net Banking</Button>                     </div>
                   </div>
                 </CardContent>
             )}

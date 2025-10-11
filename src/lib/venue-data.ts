@@ -20,6 +20,11 @@ export const venues = [
     baseCost: 220000,
     bookedDates: ['2024-08-30'],
     supportedEvents: ['Marriages (Weddings)', 'Sangeeths', 'Corporate Events', 'General Parties/Gatherings', 'Others'],
+    previousEvents: [
+        'Grand wedding reception for Mr. & Mrs. Sharma (500 guests)',
+        'Infosys Annual Corporate Gala 2023',
+        'Lavish Sangeet Ceremony for the Khan family'
+    ]
   },
   {
     id: 'venue-10',
@@ -30,6 +35,11 @@ export const venues = [
     baseCost: 110000,
     bookedDates: ['2024-09-25', '2024-09-26'],
     supportedEvents: ['Corporate Events', 'Conferences', 'Birthday Parties', 'Others'],
+    previousEvents: [
+        'Hyderabad Tech Summit 2023 (1000+ attendees)',
+        'Annual conference for the Telangana Developers Association',
+        'Large-scale product launch for a major electronics brand'
+    ]
   },
   {
     id: 'venue-15',
@@ -80,6 +90,11 @@ export const venues = [
     baseCost: 290000,
     bookedDates: ['2024-09-20', '2024-09-21'],
     supportedEvents: ['Corporate Events', 'Marriages (Weddings)', 'Sangeeths', 'Others'],
+    previousEvents: [
+        'Filmfare Awards South 2022',
+        'Star-studded Sangeet for a Bollywood celebrity',
+        'International brand activation for a luxury car company'
+    ]
   },
   {
     id: 'venue-20',
