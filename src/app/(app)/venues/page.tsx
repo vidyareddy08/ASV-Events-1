@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { venues } from '@/lib/venue-data';
 import { ArrowRight, MapPin } from 'lucide-react';
+import VenueChatbot from '@/components/VenueChatbot';
 
 const locations = [
   'All',
@@ -90,6 +91,7 @@ export default function VenuesPage() {
           </Card>
         ))}
       </div>
+      <VenueChatbot />
     </div>
   );
 }
