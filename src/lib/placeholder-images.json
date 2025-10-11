@@ -87,19 +87,19 @@
     {
       "id": "v5a",
       "description": "Nizami Palace Image 1",
-      "imageUrl": "https://www.thegrandnewdelhi.com/uploads/blog/image_2024-09-30-12-39-56_66fa9c1c557a9.jpg",
+      "imageUrl": "https://picsum.photos/seed/v5a/800/450",
       "imageHint": "event hall"
     },
     {
       "id": "v5b",
       "description": "Nizami Palace Image 2",
-      "imageUrl": "https://cdn0.weddingwire.in/vendor/9479/3_2/960/jpeg/whatsapp-image-2025-06-01-at-11-44-33-am_15_149479-174875853138105.jpeg",
+      "imageUrl": "https://picsum.photos/seed/v5b/800/450",
       "imageHint": "wedding decoration"
     },
     {
       "id": "v5c",
       "description": "Nizami Palace Image 3",
-      "imageUrl": "https://cdn0.weddingwire.in/vendor/3569/3_2/960/jpg/banquet-hall2_15_343569-159920107750061.jpeg",
+      "imageUrl": "https://picsum.photos/seed/v5c/800/450",
       "imageHint": "party lights"
     },
     {
@@ -153,19 +153,19 @@
     {
       "id": "v17a",
       "description": "Secunderabad Club Image 1",
-      "imageUrl": "https://storage.googleapis.com/gemini-studio-assets/social-images/415059a4-1296-4191-a169-236859599540.jpeg",
+      "imageUrl": "https://picsum.photos/seed/v17a/800/450",
       "imageHint": "banquet hall wedding"
     },
     {
       "id": "v17b",
       "description": "Secunderabad Club Image 2",
-      "imageUrl": "https://storage.googleapis.com/gemini-studio-assets/social-images/916a301a-2895-46f9-8664-96e05697207c.jpeg",
+      "imageUrl": "https://picsum.photos/seed/v17b/800/450",
       "imageHint": "indian wedding food"
     },
     {
       "id": "v17c",
       "description": "Secunderabad Club Image 3",
-      "imageUrl": "https://storage.googleapis.com/gemini-studio-assets/social-images/5938d227-8148-43d9-ac88-756184288001.jpeg",
+      "imageUrl": "https://picsum.photos/seed/v17c/800/450",
       "imageHint": "wedding seating"
     },
     {
@@ -219,26 +219,26 @@
     {
       "id": "v21a",
       "description": "LB Nagar Banquet Image 1",
-      "imageUrl": "https://storage.googleapis.com/gemini-studio-assets/social-images/916a301a-2895-46f9-8664-96e05697207c.jpeg",
-      "imageHint": "indian wedding food"
+      "imageUrl": "https://picsum.photos/seed/v21a/800/450",
+      "imageHint": "wedding food"
     },
     {
       "id": "v21b",
       "description": "LB Nagar Banquet Image 2",
-      "imageUrl": "https://storage.googleapis.com/gemini-studio-assets/social-images/5938d227-8148-43d9-ac88-756184288001.jpeg",
+      "imageUrl": "https://picsum.photos/seed/v21b/800/450",
       "imageHint": "wedding seating"
     },
     {
       "id": "v22a",
       "description": "Deccan Paradise Image 1",
-      "imageUrl": "https://storage.googleapis.com/gemini-studio-assets/social-images/415059a4-1296-4191-a169-236859599540.jpeg",
-      "imageHint": "banquet hall wedding"
+      "imageUrl": "https://picsum.photos/seed/v22a/800/450",
+      "imageHint": "banquet hall"
     },
     {
       "id": "v22b",
       "description": "Deccan Paradise Image 2",
-      "imageUrl": "https://storage.googleapis.com/gemini-studio-assets/social-images/916a301a-2895-46f9-8664-96e05697207c.jpeg",
-      "imageHint": "indian wedding food"
+      "imageUrl": "https://picsum.photos/seed/v22b/800/450",
+      "imageHint": "banquet food"
     },
     {
       "id": "concert1",

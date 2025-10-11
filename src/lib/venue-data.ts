@@ -16,11 +16,7 @@ export const venues = [
     name: 'Nizami Palace',
     location: 'Hyderabad (West)',
     hallType: 'Banquet Hall',
-    images: [
-        'https://www.thegrandnewdelhi.com/uploads/blog/image_2024-09-30-12-39-56_66fa9c1c557a9.jpg',
-        'https://cdn0.weddingwire.in/vendor/9479/3_2/960/jpeg/whatsapp-image-2025-06-01-at-11-44-33-am_15_149479-174875853138105.jpeg',
-        'https://cdn0.weddingwire.in/vendor/3569/3_2/960/jpg/banquet-hall2_15_343569-159920107750061.jpeg'
-    ],
+    images: [getImage('v5a'), getImage('v5b'), getImage('v5c')],
     baseCost: 220000,
     bookedDates: ['2024-08-30'],
     supportedEvents: ['Marriages (Weddings)', 'Sangeeths', 'Corporate Events', 'General Parties/Gatherings', 'Others'],
@@ -80,7 +76,7 @@ export const venues = [
     name: 'Secunderabad Club',
     location: 'Hyderabad (North)',
     hallType: 'Banquet Hall',
-    images: [getImage('v17a'), getImage('v17b'), getImage('v17c')],
+    images: [getImage('v17a'), getImage('v17b')],
     baseCost: 210000,
     bookedDates: ['2024-09-08'],
     supportedEvents: ['Marriages (Weddings)', 'Corporate Events', 'General Parties/Gatherings', 'Others'],
