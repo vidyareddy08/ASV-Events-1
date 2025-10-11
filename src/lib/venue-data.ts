@@ -1,3 +1,4 @@
+
 import { PlaceHolderImages } from './placeholder-images';
 
 const getImage = (id: string) => {
@@ -18,7 +19,7 @@ export const venues = [
     images: [getImage('v5a'), getImage('v5b'), getImage('v5c')],
     baseCost: 220000,
     bookedDates: ['2024-08-30'],
-    supportedEvents: ['Marriages (Weddings)', 'Sangeeths', 'Corporate Events', 'General Parties/Gatherings'],
+    supportedEvents: ['Marriages (Weddings)', 'Sangeeths', 'Corporate Events', 'General Parties/Gatherings', 'Others'],
   },
   {
     id: 'venue-10',
@@ -28,7 +29,7 @@ export const venues = [
     images: [getImage('v10a'), getImage('v10b'), getImage('v10c')],
     baseCost: 110000,
     bookedDates: ['2024-09-25', '2024-09-26'],
-    supportedEvents: ['Corporate Events', 'Conferences', 'Birthday Parties'],
+    supportedEvents: ['Corporate Events', 'Conferences', 'Birthday Parties', 'Others'],
   },
   {
     id: 'venue-15',
@@ -38,7 +39,7 @@ export const venues = [
     images: [getImage('v15a'), getImage('v15b'), getImage('v15c')],
     baseCost: 240000,
     bookedDates: ['2024-08-29', '2024-09-29'],
-    supportedEvents: ['Marriages (Weddings)', 'Sangeeths', 'General Parties/Gatherings', 'Night Parties'],
+    supportedEvents: ['Marriages (Weddings)', 'Sangeeths', 'General Parties/Gatherings', 'Night Parties', 'Others'],
   },
   {
     id: 'venue-16',
@@ -48,7 +49,7 @@ export const venues = [
     images: [getImage('v16a'), getImage('v16b')],
     baseCost: 180000,
     bookedDates: ['2024-09-02', '2024-09-03'],
-    supportedEvents: ['Birthday Parties', 'General Parties/Gatherings', 'Sangeeths'],
+    supportedEvents: ['Birthday Parties', 'General Parties/Gatherings', 'Sangeeths', 'Others'],
   },
   {
     id: 'venue-17',
@@ -58,7 +59,7 @@ export const venues = [
     images: [getImage('v17a'), getImage('v17b'), getImage('v17c')],
     baseCost: 210000,
     bookedDates: ['2024-09-08'],
-    supportedEvents: ['Marriages (Weddings)', 'Corporate Events', 'General Parties/Gatherings'],
+    supportedEvents: ['Marriages (Weddings)', 'Corporate Events', 'General Parties/Gatherings', 'Others'],
   },
   {
     id: 'venue-18',
@@ -68,7 +69,7 @@ export const venues = [
     images: [getImage('v18a'), getImage('v18b')],
     baseCost: 150000,
     bookedDates: ['2024-08-28', '2024-09-18'],
-    supportedEvents: ['Birthday Parties', 'General Parties/Gatherings', 'Night Parties'],
+    supportedEvents: ['Birthday Parties', 'General Parties/Gatherings', 'Night Parties', 'Others'],
   },
   {
     id: 'venue-19',
@@ -78,7 +79,7 @@ export const venues = [
     images: [getImage('v19a'), getImage('v19b'), getImage('v19c')],
     baseCost: 290000,
     bookedDates: ['2024-09-20', '2024-09-21'],
-    supportedEvents: ['Corporate Events', 'Marriages (Weddings)', 'Sangeeths'],
+    supportedEvents: ['Corporate Events', 'Marriages (Weddings)', 'Sangeeths', 'Others'],
   },
   {
     id: 'venue-20',
@@ -88,7 +89,7 @@ export const venues = [
     images: [getImage('v20a'), getImage('v20b'), getImage('v20c')],
     baseCost: 110000,
     bookedDates: ['2024-09-25', '2024-09-26'],
-    supportedEvents: ['Birthday Parties', 'Night Parties', 'General Parties/Gatherings'],
+    supportedEvents: ['Birthday Parties', 'Night Parties', 'General Parties/Gatherings', 'Others'],
   },
   {
     id: 'venue-21',
@@ -98,6 +99,6 @@ export const venues = [
     images: [getImage('v21a'), getImage('v21b')],
     baseCost: 95000,
     bookedDates: ['2024-09-15', '2024-09-16'],
-    supportedEvents: ['Birthday Parties', 'General Parties/Gatherings', 'Corporate Events'],
+    supportedEvents: ['Birthday Parties', 'General Parties/Gatherings', 'Corporate Events', 'Others'],
   },
 ];
