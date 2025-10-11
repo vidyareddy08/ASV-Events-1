@@ -263,6 +263,36 @@
       "description": "Coding bootcamp",
       "imageUrl": "https://picsum.photos/seed/w3/800/450",
       "imageHint": "code screen"
+    },
+    {
+      "id": "workshop4",
+      "description": "Pottery making class",
+      "imageUrl": "https://picsum.photos/seed/w4/800/450",
+      "imageHint": "pottery wheel"
+    },
+    {
+      "id": "workshop5",
+      "description": "Digital marketing seminar",
+      "imageUrl": "https://picsum.photos/seed/w5/800/450",
+      "imageHint": "marketing chart"
+    },
+    {
+      "id": "workshop6",
+      "description": "AI and ML introduction",
+      "imageUrl": "https://picsum.photos/seed/w6/800/450",
+      "imageHint": "robotics circuit"
+    },
+    {
+      "id": "workshop7",
+      "description": "Creative writing workshop",
+      "imageUrl": "https://picsum.photos/seed/w7/800/450",
+      "imageHint": "journal writing"
+    },
+    {
+      "id": "workshop8",
+      "description": "Gourmet baking class",
+      "imageUrl": "https://picsum.photos/seed/w8/800/450",
+      "imageHint": "baking cake"
     }
   ]
 }
