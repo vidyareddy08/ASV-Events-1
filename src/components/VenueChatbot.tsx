@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Bot, MessageSquare, Send, X, Loader2, User, Sparkles, Wand2 } from 'lucide-react';
+import { MessageSquare, Send, X, Loader2, User, Sparkles } from 'lucide-react';
 import { askVenueAssistant } from '@/ai/flows/venue-chat-flow';
 import { Card, CardContent } from './ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose, DialogTrigger } from './ui/dialog';
@@ -93,7 +93,7 @@ export default function VenueChatbot() {
       <Card className="bg-gradient-to-r from-primary/10 to-accent/10 border-2 border-primary/20 rounded-xl shadow-lg">
           <CardContent className="p-6 flex items-center justify-between">
               <div>
-                  <h3 className="text-xl font-bold font-headline text-primary flex items-center gap-2"><Sparkles className="h-6 w-6"/> AI Assistant</h3>
+                  <h3 className="text-xl font-bold font-headline text-primary flex items-center gap-2"><Sparkles className="h-6 w-6"/> AI Venue Assistant</h3>
                   <p className="text-muted-foreground">Ask me anything about our venues, events, and services!</p>
               </div>
               <DialogTrigger asChild>
@@ -104,7 +104,7 @@ export default function VenueChatbot() {
 
       <DialogContent className="max-w-3xl h-[80vh] flex flex-col p-0 gap-0">
         <DialogHeader className='p-4 border-b'>
-          <DialogTitle className='flex items-center gap-2 font-headline text-2xl text-primary'><Wand2 /> AI Venue Assistant</DialogTitle>
+          <DialogTitle className='flex items-center gap-2 font-headline text-2xl text-primary'><Sparkles /> Your AI Venue Expert</DialogTitle>
           <DialogDescription>Your personal guide to finding the perfect venue in Hyderabad.</DialogDescription>
         </DialogHeader>
 
@@ -119,7 +119,7 @@ export default function VenueChatbot() {
               >
                 {message.sender === 'bot' && (
                   <div className="p-2 bg-primary/10 rounded-full text-primary flex-shrink-0">
-                    <Bot className="h-6 w-6" />
+                    <Sparkles className="h-6 w-6" />
                   </div>
                 )}
                 <div
@@ -141,7 +141,7 @@ export default function VenueChatbot() {
             {isLoading && (
                <div className="flex items-start gap-3">
                   <div className="p-2 bg-primary/10 rounded-full text-primary flex-shrink-0">
-                    <Bot className="h-6 w-6" />
+                    <Sparkles className="h-6 w-6" />
                   </div>
                   <div className="max-w-[75%] rounded-2xl px-4 py-3 shadow-sm bg-card flex items-center">
                       <Loader2 className="h-5 w-5 animate-spin text-primary"/>
