@@ -102,11 +102,11 @@ export const venues = [
     supportedEvents: ['Birthday Parties', 'General Parties/Gatherings', 'Night Parties', 'Others'],
   },
   {
-    id: 'venue-19',
-    name: 'Ramoji Film City Events',
+    id: 'venue-26',
+    name: 'Lohia Convention',
     location: 'Hyderabad (East)',
     hallType: 'Auditorium',
-    images: [getImage('v19a'), getImage('v19b'), getImage('v19c')],
+    images: [getImage('lohia1'), getImage('lohia2')],
     baseCost: 290000,
     bookedDates: ['2024-09-20', '2024-09-21'],
     supportedEvents: ['Corporate Events', 'Marriages (Weddings)', 'Sangeeths', 'Others'],
@@ -117,13 +117,15 @@ export const venues = [
     ]
   },
   {
-    id: 'venue-21',
-    name: 'LB Nagar Banquet',
+    id: 'venue-27',
+    name: 'Tatva Convention and Garden',
     location: 'Hyderabad (East)',
     hallType: 'Banquet Hall',
-    images: [getImage('v21a'), getImage('v21b')],
+    images: [getImage('tatva1'), getImage('tatva2')],
     baseCost: 95000,
     bookedDates: ['2024-09-15', '2024-09-16'],
     supportedEvents: ['Birthday Parties', 'General Parties/Gatherings', 'Corporate Events', 'Others'],
   },
 ];
+
+    

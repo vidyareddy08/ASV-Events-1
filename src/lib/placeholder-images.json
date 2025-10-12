@@ -169,24 +169,6 @@
       "imageHint": "night lights"
     },
     {
-      "id": "v19a",
-      "description": "Ramoji Film City Events Image 1",
-      "imageUrl": "https://picsum.photos/seed/v19a/800/450",
-      "imageHint": "film set"
-    },
-    {
-      "id": "v19b",
-      "description": "Ramoji Film City Events Image 2",
-      "imageUrl": "https://picsum.photos/seed/v19b/800/450",
-      "imageHint": "grand entrance"
-    },
-    {
-      "id": "v19c",
-      "description": "Ramoji Film City Events Image 3",
-      "imageUrl": "https://picsum.photos/seed/v19c/800/450",
-      "imageHint": "auditorium stage"
-    },
-    {
       "id": "v20a",
       "description": "Begumpet Airport Lawns Image 1",
       "imageUrl": "https://picsum.photos/seed/v20a/800/450",
@@ -203,18 +185,6 @@
       "description": "Begumpet Airport Lawns Image 3",
       "imageUrl": "https://picsum.photos/seed/v20c/800/450",
       "imageHint": "evening gathering"
-    },
-    {
-      "id": "v21a",
-      "description": "LB Nagar Banquet Image 1",
-      "imageUrl": "https://picsum.photos/seed/v21a/800/450",
-      "imageHint": "wedding food"
-    },
-    {
-      "id": "v21b",
-      "description": "LB Nagar Banquet Image 2",
-      "imageUrl": "https://picsum.photos/seed/v21b/800/450",
-      "imageHint": "wedding seating"
     },
     {
       "id": "v23a",
@@ -251,6 +221,30 @@
       "description": "Sampradaya Vedika Image 2",
       "imageUrl": "https://picsum.photos/seed/sv2/800/450",
       "imageHint": "cultural event"
+    },
+    {
+      "id": "lohia1",
+      "description": "Lohia Convention Image 1",
+      "imageUrl": "https://picsum.photos/seed/lohia1/800/450",
+      "imageHint": "modern convention"
+    },
+    {
+      "id": "lohia2",
+      "description": "Lohia Convention Image 2",
+      "imageUrl": "https://picsum.photos/seed/lohia2/800/450",
+      "imageHint": "conference setup"
+    },
+    {
+      "id": "tatva1",
+      "description": "Tatva Convention and Garden Image 1",
+      "imageUrl": "https://picsum.photos/seed/tatva1/800/450",
+      "imageHint": "garden wedding"
+    },
+    {
+      "id": "tatva2",
+      "description": "Tatva Convention and Garden Image 2",
+      "imageUrl": "https://picsum.photos/seed/tatva2/800/450",
+      "imageHint": "reception decoration"
     },
     {
       "id": "concert1",
