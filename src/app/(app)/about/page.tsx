@@ -5,8 +5,8 @@ import { CheckCircle, History, Target } from 'lucide-react';
 import Image from 'next/image';
 
 const teamMembers = [
-  { name: 'Anushritha', role: 'Founder & CEO', imageId: 'team1' },
   { name: 'Vidya', role: 'Founder & CEO', imageId: 'team2' },
+  { name: 'Anushritha', role: 'Founder & CEO', imageId: 'team1' },
   { name: 'Sathvika', role: 'Founder & CEO', imageId: 'team3' },
 ];
 
