@@ -1,10 +1,9 @@
-
 'use client';
 import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { MessageSquare, Send, X, Loader2, User, Sparkles } from 'lucide-react';
+import { Send, X, Loader2, User, Sparkles } from 'lucide-react';
 import { askVenueAssistant } from '@/ai/flows/venue-chat-flow';
 import { Card, CardContent } from './ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose, DialogTrigger } from './ui/dialog';
