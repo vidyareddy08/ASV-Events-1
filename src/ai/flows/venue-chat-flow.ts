@@ -5,7 +5,6 @@
  * @fileOverview A simple AI flow for answering questions about venues.
  *
  * - askVenueAssistant: A function that takes a user query and returns an AI-generated answer.
- * - VenueAssistantInput: The Zod schema for the input.
  */
 
 import { ai } from '@/ai/genkit';
