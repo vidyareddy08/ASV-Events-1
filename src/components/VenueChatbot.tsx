@@ -3,11 +3,11 @@
 import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Bot, MessageSquare, Send, X, Loader2, User } from 'lucide-react';
-import { askVenueAssistant, type VenueAssistantInput } from '@/ai/flows/venue-chat-flow';
-import { cn } from '@/lib/utils';
+import { Bot, MessageSquare, Send, X, Loader2, User, Sparkles, Wand2 } from 'lucide-react';
+import { askVenueAssistant } from '@/ai/flows/venue-chat-flow';
+import { Card, CardContent } from './ui/card';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose, DialogTrigger } from './ui/dialog';
 
 type Message = {
   id: number;
@@ -15,42 +15,42 @@ type Message = {
   sender: 'user' | 'bot';
 };
 
+const exampleQueries = [
+    "Suggest a wedding venue for 500 guests",
+    "What are the upcoming concerts?",
+    "Tell me about your company",
+    "Are there any job openings?",
+]
+
 export default function VenueChatbot() {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: 1,
-      text: "Hello! I'm your AI venue assistant. How can I help you find the perfect event space today?",
-      sender: 'bot',
-    },
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (isOpen && scrollAreaRef.current) {
-      setTimeout(() => {
-        scrollAreaRef.current?.scrollTo({
+    if (scrollAreaRef.current) {
+        scrollAreaRef.current.scrollTo({
           top: scrollAreaRef.current.scrollHeight,
-          behavior: 'smooth',
         });
-      }, 100);
     }
-  }, [messages, isOpen]);
-
-  const handleSendMessage = async (e: React.FormEvent) => {
+  }, [messages]);
+  
+  const handleSendMessage = async (e: React.FormEvent, query?: string) => {
     e.preventDefault();
-    if (!input.trim()) return;
+    const currentInput = query || input;
+    if (!currentInput.trim()) return;
 
     const userMessage: Message = {
       id: Date.now(),
-      text: input,
+      text: currentInput,
       sender: 'user',
     };
     setMessages((prev) => [...prev, userMessage]);
-    const currentInput = input;
-    setInput('');
+    if (!query) {
+        setInput('');
+    }
     setIsLoading(true);
 
     try {
@@ -73,91 +73,113 @@ export default function VenueChatbot() {
       setIsLoading(false);
     }
   };
+  
+  const handleOpenChange = (open: boolean) => {
+      if(open && messages.length === 0){
+        // Add initial bot message only when opening for the first time
+        setMessages([
+          {
+            id: 1,
+            text: "Hello! I'm your AI venue assistant. How can I help you find the perfect event space today?",
+            sender: 'bot',
+          },
+        ]);
+      }
+      setIsOpen(open);
+  }
 
   return (
-    <Popover open={isOpen} onOpenChange={setIsOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          className={cn(
-            "fixed bottom-6 right-6 h-16 w-16 rounded-full shadow-lg text-white bg-gradient-to-r from-primary to-accent transition-transform hover:scale-110",
-            !isOpen && "animate-pulse"
-          )}
-          size="icon"
-        >
-          {isOpen ? <X className="h-8 w-8" /> : <MessageSquare className="h-8 w-8" />}
-          <span className="sr-only">Toggle Chat</span>
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent
-        side="top"
-        align="end"
-        className="w-[350px] md:w-[400px] p-0 rounded-xl overflow-hidden shadow-2xl border-2"
-        sideOffset={16}
-      >
-        <div className="flex flex-col h-[500px]">
-          <header className="flex items-center gap-3 p-4 bg-primary text-primary-foreground border-b">
-            <Bot className="h-7 w-7" />
-            <h3 className="font-bold text-lg">Venue Assistant</h3>
-          </header>
-          <ScrollArea className="flex-grow p-4 bg-background/50" ref={scrollAreaRef}>
-            <div className="space-y-4">
-              {messages.map((message) => (
+    <Dialog open={isOpen} onOpenChange={handleOpenChange}>
+      <Card className="bg-gradient-to-r from-primary/10 to-accent/10 border-2 border-primary/20 rounded-xl shadow-lg">
+          <CardContent className="p-6 flex items-center justify-between">
+              <div>
+                  <h3 className="text-xl font-bold font-headline text-primary flex items-center gap-2"><Sparkles className="h-6 w-6"/> AI Assistant</h3>
+                  <p className="text-muted-foreground">Ask me anything about our venues, events, and services!</p>
+              </div>
+              <DialogTrigger asChild>
+                  <Button>Ask AI</Button>
+              </DialogTrigger>
+          </CardContent>
+      </Card>
+
+      <DialogContent className="max-w-3xl h-[80vh] flex flex-col p-0 gap-0">
+        <DialogHeader className='p-4 border-b'>
+          <DialogTitle className='flex items-center gap-2 font-headline text-2xl text-primary'><Wand2 /> AI Venue Assistant</DialogTitle>
+          <DialogDescription>Your personal guide to finding the perfect venue in Hyderabad.</DialogDescription>
+        </DialogHeader>
+
+        <ScrollArea className="flex-grow p-4" ref={scrollAreaRef}>
+          <div className="space-y-6">
+            {messages.map((message) => (
+              <div
+                key={message.id}
+                className={`flex items-start gap-3 text-base ${
+                  message.sender === 'user' ? 'justify-end' : ''
+                }`}
+              >
+                {message.sender === 'bot' && (
+                  <div className="p-2 bg-primary/10 rounded-full text-primary flex-shrink-0">
+                    <Bot className="h-6 w-6" />
+                  </div>
+                )}
                 <div
-                  key={message.id}
-                  className={`flex items-start gap-3 ${
-                    message.sender === 'user' ? 'justify-end' : ''
+                  className={`max-w-[80%] rounded-2xl px-4 py-3 shadow-sm ${
+                    message.sender === 'user'
+                      ? 'bg-primary text-primary-foreground rounded-br-none'
+                      : 'bg-card text-card-foreground rounded-bl-none'
                   }`}
                 >
-                  {message.sender === 'bot' && (
-                    <div className="p-2 bg-primary rounded-full text-primary-foreground flex-shrink-0">
-                      <Bot className="h-5 w-5" />
-                    </div>
-                  )}
-                  <div
-                    className={`max-w-[75%] rounded-xl p-3 text-sm ${
-                      message.sender === 'user'
-                        ? 'bg-secondary text-secondary-foreground'
-                        : 'bg-card'
-                    }`}
-                  >
-                    {message.text}
-                  </div>
-                   {message.sender === 'user' && (
-                    <div className="p-2 bg-secondary rounded-full text-secondary-foreground flex-shrink-0">
-                      <User className="h-5 w-5" />
-                    </div>
-                  )}
+                  {message.text}
                 </div>
-              ))}
-              {isLoading && (
-                 <div className="flex items-start gap-3">
-                    <div className="p-2 bg-primary rounded-full text-primary-foreground flex-shrink-0">
-                      <Bot className="h-5 w-5" />
-                    </div>
-                    <div className="max-w-[75%] rounded-xl p-3 text-sm bg-card flex items-center">
-                        <Loader2 className="h-5 w-5 animate-spin text-primary"/>
-                    </div>
+                 {message.sender === 'user' && (
+                  <div className="p-2 bg-secondary rounded-full text-secondary-foreground flex-shrink-0">
+                    <User className="h-6 w-6" />
+                  </div>
+                )}
+              </div>
+            ))}
+            {isLoading && (
+               <div className="flex items-start gap-3">
+                  <div className="p-2 bg-primary/10 rounded-full text-primary flex-shrink-0">
+                    <Bot className="h-6 w-6" />
+                  </div>
+                  <div className="max-w-[75%] rounded-2xl px-4 py-3 shadow-sm bg-card flex items-center">
+                      <Loader2 className="h-5 w-5 animate-spin text-primary"/>
+                  </div>
+               </div>
+            )}
+             {messages.length <= 1 && !isLoading && (
+                 <div className='pt-8 text-center'>
+                     <p className='text-sm text-muted-foreground mb-4'>Try asking one of these:</p>
+                     <div className='grid grid-cols-2 gap-2'>
+                        {exampleQueries.map(q => (
+                            <Button key={q} variant="outline" size="sm" onClick={(e) => handleSendMessage(e, q)}>{q}</Button>
+                        ))}
+                     </div>
                  </div>
-              )}
-            </div>
-          </ScrollArea>
-          <footer className="p-4 border-t bg-background">
-            <form onSubmit={handleSendMessage} className="flex items-center gap-2">
-              <Input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask about venues..."
-                className="flex-grow"
-                disabled={isLoading}
-              />
-              <Button type="submit" size="icon" disabled={isLoading || !input.trim()}>
-                <Send className="h-5 w-5" />
-                <span className="sr-only">Send</span>
-              </Button>
-            </form>
-          </footer>
-        </div>
-      </PopoverContent>
-    </Popover>
+            )}
+          </div>
+        </ScrollArea>
+        <footer className="p-4 border-t bg-background/80">
+          <form onSubmit={handleSendMessage} className="flex items-center gap-2">
+            <Input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="e.g., 'I need a venue for a small birthday party...'"
+              className="flex-grow h-11 text-base"
+              disabled={isLoading}
+            />
+            <Button type="submit" size="icon" className="h-11 w-11" disabled={isLoading || !input.trim()}>
+              <Send className="h-5 w-5" />
+              <span className="sr-only">Send</span>
+            </Button>
+          </form>
+        </footer>
+        <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+          <X className="h-4 w-4" />
+          <span className="sr-only">Close</span>
+        </DialogClose>
+      </DialogContent>
+    </Dialog>
   );
 }

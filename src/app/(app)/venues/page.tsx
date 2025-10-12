@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -50,8 +51,10 @@ export default function VenuesPage() {
           ))}
         </div>
       </div>
+      
+      <VenueChatbot />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
         {filteredVenues.map((venue) => (
           <Card
             key={venue.id}
@@ -91,7 +94,6 @@ export default function VenuesPage() {
           </Card>
         ))}
       </div>
-      <VenueChatbot />
     </div>
   );
 }
