@@ -121,24 +121,6 @@
       "imageHint": "stage presentation"
     },
     {
-      "id": "v15a",
-      "description": "Charminar Courtyard Image 1",
-      "imageUrl": "https://picsum.photos/seed/v15a/800/450",
-      "imageHint": "outdoor event"
-    },
-    {
-      "id": "v15b",
-      "description": "Charminar Courtyard Image 2",
-      "imageUrl": "https://picsum.photos/seed/v15b/800/450",
-      "imageHint": "garden wedding"
-    },
-    {
-      "id": "v15c",
-      "description": "Charminar Courtyard Image 3",
-      "imageUrl": "https://picsum.photos/seed/v15c/800/450",
-      "imageHint": "evening party"
-    },
-    {
       "id": "v16a",
       "description": "Golkonda Fort Lawns Image 1",
       "imageUrl": "https://picsum.photos/seed/v16a/800/450",
@@ -235,18 +217,6 @@
       "imageHint": "wedding seating"
     },
     {
-      "id": "v22a",
-      "description": "Deccan Paradise Image 1",
-      "imageUrl": "https://picsum.photos/seed/v22a/800/450",
-      "imageHint": "banquet hall"
-    },
-    {
-      "id": "v22b",
-      "description": "Deccan Paradise Image 2",
-      "imageUrl": "https://picsum.photos/seed/v22b/800/450",
-      "imageHint": "banquet food"
-    },
-    {
       "id": "v23a",
       "description": "Ridhira Retreat Image 1",
       "imageUrl": "https://picsum.photos/seed/v23a/800/450",
@@ -257,6 +227,30 @@
       "description": "Ridhira Retreat Image 2",
       "imageUrl": "https://picsum.photos/seed/v23b/800/450",
       "imageHint": "poolside party"
+    },
+    {
+      "id": "rrp1",
+      "description": "Red Rose Palace Image 1",
+      "imageUrl": "https://picsum.photos/seed/rrp1/800/450",
+      "imageHint": "palace wedding"
+    },
+    {
+      "id": "rrp2",
+      "description": "Red Rose Palace Image 2",
+      "imageUrl": "https://picsum.photos/seed/rrp2/800/450",
+      "imageHint": "banquet decoration"
+    },
+    {
+      "id": "sv1",
+      "description": "Sampradaya Vedika Image 1",
+      "imageUrl": "https://picsum.photos/seed/sv1/800/450",
+      "imageHint": "traditional hall"
+    },
+    {
+      "id": "sv2",
+      "description": "Sampradaya Vedika Image 2",
+      "imageUrl": "https://picsum.photos/seed/sv2/800/450",
+      "imageHint": "cultural event"
     },
     {
       "id": "concert1",
