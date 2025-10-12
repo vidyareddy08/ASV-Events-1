@@ -1,7 +1,7 @@
 
 'use client';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Button } from '@/components/ui/button';
@@ -11,13 +11,19 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { workshops, type Workshop } from '@/lib/workshop-data';
-import { Calendar, Edit, User } from 'lucide-react';
+import { Calendar, Edit, User, CreditCard, Landmark } from 'lucide-react';
 import Image from 'next/image';
 import { format } from 'date-fns';
 
+const participantSchema = z.object({
+  name: z.string().min(2, { message: 'Name is required.' }),
+  email: z.string().email({ message: 'A valid email is required.' }),
+});
+
 const registrationSchema = z.object({
-  name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
-  email: z.string().email({ message: 'Please enter a valid email address.' }),
+  participantCount: z.number().min(1, 'At least one participant is required.').max(10, 'You can register a maximum of 10 participants.'),
+  participants: z.array(participantSchema).min(1),
+  paymentMethod: z.string().nonempty({ message: 'Please select a payment method.' }),
 });
 
 type RegistrationFormValues = z.infer<typeof registrationSchema>;
@@ -25,38 +31,120 @@ type RegistrationFormValues = z.infer<typeof registrationSchema>;
 function RegistrationForm({ workshop, onRegister }: { workshop: Workshop; onRegister: (values: RegistrationFormValues) => void; }) {
   const form = useForm<RegistrationFormValues>({
     resolver: zodResolver(registrationSchema),
-    defaultValues: { name: '', email: '' },
+    defaultValues: {
+      participantCount: 1,
+      participants: [{ name: '', email: '' }],
+      paymentMethod: ''
+    },
   });
 
-  function onSubmit(data: RegistrationFormValues) {
-    onRegister(data);
-    form.reset();
-  }
+  const { fields, append, remove } = useFieldArray({
+    control: form.control,
+    name: 'participants',
+  });
+
+  const participantCount = form.watch('participantCount');
+
+  useState(() => {
+    const currentCount = fields.length;
+    if (participantCount > currentCount) {
+      for (let i = 0; i < participantCount - currentCount; i++) {
+        append({ name: '', email: '' });
+      }
+    } else if (participantCount < currentCount) {
+      for (let i = 0; i < currentCount - participantCount; i++) {
+        remove(participantCount + i);
+      }
+    }
+  });
+
+  const totalAmount = workshop.price * participantCount;
 
   return (
      <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onRegister)} className="space-y-4">
         <DialogHeader>
           <DialogTitle>Register for: {workshop.title}</DialogTitle>
           <DialogDescription>
             Fill in your details below to secure your spot. A confirmation will be sent to your email.
           </DialogDescription>
         </DialogHeader>
-        <div className="space-y-4 py-4">
-          <FormField control={form.control} name="name" render={({ field }) => (
+        <div className="space-y-4 py-4 max-h-[60vh] overflow-y-auto px-1">
+          <FormField
+            control={form.control}
+            name="participantCount"
+            render={({ field }) => (
             <FormItem>
-              <FormLabel>Full Name</FormLabel>
-              <FormControl><Input placeholder="Your Name" {...field} /></FormControl>
+              <FormLabel>Number of Participants</FormLabel>
+              <FormControl>
+                <Input 
+                  type="number" 
+                  min="1" 
+                  max="10" 
+                  {...field}
+                  onChange={e => {
+                    const count = parseInt(e.target.value, 10);
+                    field.onChange(count);
+                    const currentParticipants = form.getValues('participants').length;
+                    if(count > currentParticipants){
+                      for(let i=currentParticipants; i< count; i++) append({name: '', email: ''});
+                    } else if (count < currentParticipants) {
+                      for(let i=currentParticipants-1; i>=count; i--) remove(i);
+                    }
+                  }}
+                  />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}/>
+
+          {fields.map((item, index) => (
+            <div key={item.id} className="p-3 border rounded-lg space-y-2">
+              <h4 className="font-medium text-sm">Participant {index + 1}</h4>
+              <FormField
+                control={form.control}
+                name={`participants.${index}.name`}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="sr-only">Name</FormLabel>
+                    <FormControl><Input placeholder="Full Name" {...field} /></FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name={`participants.${index}.email`}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="sr-only">Email</FormLabel>
+                    <FormControl><Input type="email" placeholder="Email Address" {...field} /></FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          ))}
+
+          <FormField
+            control={form.control}
+            name="paymentMethod"
+            render={({ field }) => (
+            <FormItem>
+               <FormLabel>Payment Method</FormLabel>
+                 <div className="grid grid-cols-3 gap-2">
+                      <Button type="button" variant={field.value === 'card' ? 'default' : 'outline'} onClick={() => field.onChange('card')}><CreditCard /> Card</Button>
+                      <Button type="button" variant={field.value === 'upi' ? 'default' : 'outline'} onClick={() => field.onChange('upi')}>₹ UPI</Button>
+                      <Button type="button" variant={field.value === 'netbanking' ? 'default' : 'outline'} onClick={() => field.onChange('netbanking')}><Landmark/> Net Banking</Button>
+                 </div>
               <FormMessage />
             </FormItem>
           )} />
-          <FormField control={form.control} name="email" render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email Address</FormLabel>
-              <FormControl><Input placeholder="your.email@example.com" {...field} /></FormControl>
-              <FormMessage />
-            </FormItem>
-          )} />
+          
+          <div className="border-t pt-4 text-right">
+            <p className="text-sm text-muted-foreground">Total Amount</p>
+            <p className="text-2xl font-bold">₹{totalAmount.toLocaleString('en-IN')}</p>
+          </div>
         </div>
         <DialogFooter>
           <DialogClose asChild>
@@ -75,10 +163,10 @@ export default function WorkshopsPage() {
   const [openDialogId, setOpenDialogId] = useState<string | null>(null);
 
   const handleRegistration = (values: RegistrationFormValues, workshopTitle: string) => {
-    console.log('Registration Data:', values);
+    const { participantCount, participants } = values;
     toast({
       title: 'Registration Confirmed!',
-      description: `An email has been sent to ${values.email} for the "${workshopTitle}" workshop.`,
+      description: `Registered ${participantCount} person(s) for "${workshopTitle}". Emails sent to ${participants.map(p=>p.email).join(', ')}.`,
       variant: 'default',
     });
     setOpenDialogId(null);
@@ -141,7 +229,7 @@ export default function WorkshopsPage() {
                 </DialogTrigger>
               </CardFooter>
             </Card>
-             <DialogContent className="sm:max-w-[425px]">
+             <DialogContent className="sm:max-w-xl">
                <RegistrationForm workshop={workshop} onRegister={(values) => handleRegistration(values, workshop.title)} />
             </DialogContent>
           </Dialog>
