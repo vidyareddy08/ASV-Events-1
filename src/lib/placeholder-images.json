@@ -241,6 +241,18 @@
       "imageHint": "banquet food"
     },
     {
+      "id": "v23a",
+      "description": "Ridhira Retreat Image 1",
+      "imageUrl": "https://picsum.photos/seed/v23a/800/450",
+      "imageHint": "resort lawn"
+    },
+    {
+      "id": "v23b",
+      "description": "Ridhira Retreat Image 2",
+      "imageUrl": "https://picsum.photos/seed/v23b/800/450",
+      "imageHint": "poolside party"
+    },
+    {
       "id": "concert1",
       "description": "Live music concert",
       "imageUrl": "https://picsum.photos/seed/c1/800/450",

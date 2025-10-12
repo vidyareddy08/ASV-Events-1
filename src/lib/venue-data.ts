@@ -76,10 +76,20 @@ export const venues = [
     name: 'Secunderabad Club',
     location: 'Hyderabad (North)',
     hallType: 'Banquet Hall',
-    images: [getImage('v17a'), getImage('v17b')],
+    images: [getImage('v17a'), getImage('v17b'), getImage('v17c')],
     baseCost: 210000,
     bookedDates: ['2024-09-08'],
     supportedEvents: ['Marriages (Weddings)', 'Corporate Events', 'General Parties/Gatherings', 'Others'],
+  },
+   {
+    id: 'venue-23',
+    name: 'Ridhira Retreat',
+    location: 'Hyderabad (North)',
+    hallType: 'Party Lawn',
+    images: [getImage('v23a'), getImage('v23b')],
+    baseCost: 175000,
+    bookedDates: [],
+    supportedEvents: ['Marriages (Weddings)', 'Sangeeths', 'Birthday Parties', 'Night Parties', 'Others'],
   },
   {
     id: 'venue-18',
@@ -105,16 +115,6 @@ export const venues = [
         'Star-studded Sangeet for a Bollywood celebrity',
         'International brand activation for a luxury car company'
     ]
-  },
-  {
-    id: 'venue-20',
-    name: 'Begumpet Airport Lawns',
-    location: 'Hyderabad (North)',
-    hallType: 'Party Lawn',
-    images: [getImage('v20a'), getImage('v20b'), getImage('v20c')],
-    baseCost: 110000,
-    bookedDates: ['2024-09-25', '2024-09-26'],
-    supportedEvents: ['Birthday Parties', 'Night Parties', 'General Parties/Gatherings', 'Others'],
   },
   {
     id: 'venue-21',
