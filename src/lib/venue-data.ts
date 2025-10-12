@@ -12,19 +12,24 @@ const getImage = (id: string) => {
 
 export const venues = [
   {
-    id: 'venue-05',
-    name: 'Nizami Palace',
+    id: 'venue-28',
+    name: 'Vintage Palace',
     location: 'Hyderabad (West)',
     hallType: 'Banquet Hall',
-    images: [getImage('v5a'), getImage('v5b'), getImage('v5c')],
-    baseCost: 220000,
-    bookedDates: ['2024-08-30'],
-    supportedEvents: ['Marriages (Weddings)', 'Sangeeths', 'Corporate Events', 'General Parties/Gatherings', 'Others'],
-    previousEvents: [
-        'Grand wedding reception for Mr. & Mrs. Sharma (500 guests)',
-        'Infosys Annual Corporate Gala 2023',
-        'Lavish Sangeet Ceremony for the Khan family'
-    ]
+    images: [getImage('vp1'), getImage('vp2')],
+    baseCost: 240000,
+    bookedDates: ['2024-09-05'],
+    supportedEvents: ['Marriages (Weddings)', 'Sangeeths', 'Corporate Events', 'General Parties/Gatherings'],
+  },
+  {
+    id: 'venue-29',
+    name: 'District 150',
+    location: 'Hyderabad (West)',
+    hallType: 'Party Lawn',
+    images: [getImage('d150a'), getImage('d150b')],
+    baseCost: 160000,
+    bookedDates: [],
+    supportedEvents: ['Birthday Parties', 'General Parties/Gatherings', 'Night Parties', 'Corporate Events'],
   },
   {
     id: 'venue-10',
@@ -60,16 +65,6 @@ export const venues = [
     baseCost: 190000,
     bookedDates: ['2024-09-10'],
     supportedEvents: ['Marriages (Weddings)', 'Corporate Events', 'Birthday Parties', 'General Parties/Gatherings', 'Others'],
-  },
-  {
-    id: 'venue-16',
-    name: 'Golkonda Fort Lawns',
-    location: 'Hyderabad (West)',
-    hallType: 'Party Lawn',
-    images: [getImage('v16a'), getImage('v16b')],
-    baseCost: 180000,
-    bookedDates: ['2024-09-02', '2024-09-03'],
-    supportedEvents: ['Birthday Parties', 'General Parties/Gatherings', 'Sangeeths', 'Others'],
   },
   {
     id: 'venue-17',
@@ -127,5 +122,7 @@ export const venues = [
     supportedEvents: ['Birthday Parties', 'General Parties/Gatherings', 'Corporate Events', 'Others'],
   },
 ];
+
+    
 
     

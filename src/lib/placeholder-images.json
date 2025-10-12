@@ -311,6 +311,30 @@
       "description": "Gourmet baking class",
       "imageUrl": "https://picsum.photos/seed/w8/800/450",
       "imageHint": "baking cake"
+    },
+    {
+      "id": "vp1",
+      "description": "Vintage Palace Image 1",
+      "imageUrl": "https://picsum.photos/seed/vp1/800/450",
+      "imageHint": "vintage palace"
+    },
+    {
+      "id": "vp2",
+      "description": "Vintage Palace Image 2",
+      "imageUrl": "https://picsum.photos/seed/vp2/800/450",
+      "imageHint": "royal interior"
+    },
+    {
+      "id": "d150a",
+      "description": "District 150 Image 1",
+      "imageUrl": "https://picsum.photos/seed/d150a/800/450",
+      "imageHint": "modern space"
+    },
+    {
+      "id": "d150b",
+      "description": "District 150 Image 2",
+      "imageUrl": "https://picsum.photos/seed/d150b/800/450",
+      "imageHint": "event setup"
     }
   ]
 }
