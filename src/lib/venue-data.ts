@@ -20,6 +20,7 @@ export const venues = [
     baseCost: 240000,
     bookedDates: ['2024-09-05'],
     supportedEvents: ['Marriages (Weddings)', 'Sangeeths', 'Corporate Events', 'General Parties/Gatherings'],
+    capacity: 400,
   },
   {
     id: 'venue-29',
@@ -30,6 +31,7 @@ export const venues = [
     baseCost: 160000,
     bookedDates: [],
     supportedEvents: ['Birthday Parties', 'General Parties/Gatherings', 'Night Parties', 'Corporate Events'],
+    capacity: 250,
   },
   {
     id: 'venue-10',
@@ -40,6 +42,7 @@ export const venues = [
     baseCost: 110000,
     bookedDates: ['2024-09-25', '2024-09-26'],
     supportedEvents: ['Corporate Events', 'Conferences', 'Birthday Parties', 'Others'],
+    capacity: 1000,
     previousEvents: [
         'Hyderabad Tech Summit 2023 (1000+ attendees)',
         'Annual conference for the Telangana Developers Association',
@@ -55,6 +58,7 @@ export const venues = [
     baseCost: 250000,
     bookedDates: [],
     supportedEvents: ['Marriages (Weddings)', 'Sangeeths', 'General Parties/Gatherings', 'Night Parties', 'Others'],
+    capacity: 500,
   },
   {
     id: 'venue-25',
@@ -65,6 +69,7 @@ export const venues = [
     baseCost: 190000,
     bookedDates: ['2024-09-10'],
     supportedEvents: ['Marriages (Weddings)', 'Corporate Events', 'Birthday Parties', 'General Parties/Gatherings', 'Others'],
+    capacity: 700,
   },
   {
     id: 'venue-17',
@@ -75,6 +80,7 @@ export const venues = [
     baseCost: 210000,
     bookedDates: ['2024-09-08'],
     supportedEvents: ['Marriages (Weddings)', 'Corporate Events', 'General Parties/Gatherings', 'Others'],
+    capacity: 350,
   },
    {
     id: 'venue-23',
@@ -85,6 +91,7 @@ export const venues = [
     baseCost: 175000,
     bookedDates: [],
     supportedEvents: ['Marriages (Weddings)', 'Sangeeths', 'Birthday Parties', 'Night Parties', 'Others'],
+    capacity: 300,
   },
   {
     id: 'venue-18',
@@ -95,6 +102,7 @@ export const venues = [
     baseCost: 150000,
     bookedDates: ['2024-08-28', '2024-09-18'],
     supportedEvents: ['Birthday Parties', 'General Parties/Gatherings', 'Night Parties', 'Others'],
+    capacity: 600,
   },
   {
     id: 'venue-26',
@@ -105,6 +113,7 @@ export const venues = [
     baseCost: 290000,
     bookedDates: ['2024-09-20', '2024-09-21'],
     supportedEvents: ['Corporate Events', 'Marriages (Weddings)', 'Sangeeths', 'Others'],
+    capacity: 1500,
     previousEvents: [
         'Filmfare Awards South 2022',
         'Star-studded Sangeet for a Bollywood celebrity',
@@ -120,9 +129,6 @@ export const venues = [
     baseCost: 95000,
     bookedDates: ['2024-09-15', '2024-09-16'],
     supportedEvents: ['Birthday Parties', 'General Parties/Gatherings', 'Corporate Events', 'Others'],
+    capacity: 200,
   },
 ];
-
-    
-
-    

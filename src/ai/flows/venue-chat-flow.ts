@@ -27,6 +27,7 @@ const venueContext = JSON.stringify(
     hallType: v.hallType,
     baseCost: v.baseCost,
     supportedEvents: v.supportedEvents,
+    capacity: (v as any).capacity,
   }))
 );
 
@@ -104,6 +105,8 @@ const venueAssistantPrompt = ai.definePrompt({
     prompt: `You are a friendly and helpful AI assistant for 'Hyderabad Venues', a company that rents out event spaces and provides other services.
     Your goal is to answer user questions accurately and concisely based on the information provided below.
     If the user says 'hi' or a similar greeting, respond with a friendly welcome message.
+    If a user asks for a venue suggestion, ask for the type of event and expected number of guests to provide a better recommendation.
+    When providing venue details, always include the name, location, hall type, capacity, and base cost.
     Do not make up information. If the answer is not in the data, say that you don't have that information.
     Be friendly and professional.
 
