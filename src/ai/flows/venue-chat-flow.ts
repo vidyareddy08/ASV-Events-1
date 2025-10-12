@@ -54,7 +54,6 @@ const eventManagerContext = JSON.stringify(
   }))
 );
 
-
 const faq = `
 **Frequently Asked Questions (FAQ):**
 
@@ -74,6 +73,31 @@ const faq = `
     *   A: Bookings can be cancelled up to 14 days before the event date for a full refund. Please contact our support team to initiate a cancellation.
 `;
 
+const aboutUsContext = `
+**About Hyderabad Venues:**
+
+*   **History:** Founded in 2023, Hyderabad Venues started as a project to simplify finding the perfect spot for local events. We are passionate about connecting people with the best halls, lawns, and spaces our city has to offer.
+*   **Vision:** Our vision is to be the go-to platform for booking event venues in Hyderabad. We aim to provide a seamless booking experience that makes event planning a pleasure, not a chore.
+`;
+
+const careersContext = `
+**Careers at Hyderabad Venues:**
+
+We are currently hiring for the following roles:
+*   **Senior Frontend Engineer:** Location: Hyderabad, IN. Package: ₹18-25 LPA.
+*   **Business Development Manager:** Location: Hyderabad, IN. Package: ₹15-22 LPA + Incentives.
+*   **Customer Support Specialist:** Location: Remote (Hyderabad-based). Package: ₹6-9 LPA.
+Users interested in applying should visit the careers page on our website.
+`;
+
+const featuresContext = `
+**Platform Features:**
+
+*   **Simple Search & Filter:** Easily find the perfect venue with our intuitive search and location-based filters, designed specifically for Hyderabad.
+*   **Instant Availability Check:** View real-time availability for venues with our clear and simple booking calendar. No more back-and-forth calls.
+*   **Transparent Pricing:** Get instant cost estimates including all taxes. What you see is what you pay, with no hidden fees.
+`;
+
 const venueAssistantPrompt = ai.definePrompt({
     name: 'venueAssistantPrompt',
     input: { schema: VenueAssistantInputSchema },
@@ -86,6 +110,10 @@ const venueAssistantPrompt = ai.definePrompt({
 
     ${faq}
 
+    ${aboutUsContext}
+
+    ${featuresContext}
+
     Here is the list of available venues. We have a total of ${venues.length} venues.
     ${venueContext}
 
@@ -97,6 +125,8 @@ const venueAssistantPrompt = ai.definePrompt({
 
     Here is our team of event managers:
     ${eventManagerContext}
+    
+    ${careersContext}
 
     User's question: {{{query}}}
     `,
