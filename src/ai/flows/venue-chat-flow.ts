@@ -1,3 +1,4 @@
+
 'use server';
 
 /**
@@ -138,12 +139,11 @@ const venueChatFlow = ai.defineFlow(
     outputSchema: z.string(),
   },
   async (input) => {
-    const { text } = await ai.generate({
+    const response = await ai.generate({
         model: 'googleai/gemini-2.5-flash',
-        prompt: venueAssistantPrompt,
-        input,
+        prompt: await venueAssistantPrompt.render(input),
     });
-    return text;
+    return response.text;
   }
 );
 
