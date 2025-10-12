@@ -142,11 +142,7 @@ const venueChatFlow = ai.defineFlow(
     outputSchema: z.string(),
   },
   async (input) => {
-    const llmResponse = await ai.generate({
-        prompt: venueAssistantPrompt,
-        input: input,
-        model: 'googleai/gemini-2.5-flash',
-    });
+    const llmResponse = await venueAssistantPrompt(input);
     return llmResponse.text;
   }
 );
