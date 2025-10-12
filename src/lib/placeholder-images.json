@@ -169,6 +169,12 @@
       "imageHint": "wedding seating"
     },
     {
+      "id": "v17d",
+      "description": "Secunderabad Club Image 4",
+      "imageUrl": "https://storage.googleapis.com/aifirebase-1.appspot.com/frameworks/nextjs/chat_bf145330_5.jpg",
+      "imageHint": "outdoor seating"
+    },
+    {
       "id": "v18a",
       "description": "Necklace Road Gardens Image 1",
       "imageUrl": "https://picsum.photos/seed/v18a/800/450",

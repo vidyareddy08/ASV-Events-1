@@ -76,7 +76,7 @@ export const venues = [
     name: 'Secunderabad Club',
     location: 'Hyderabad (North)',
     hallType: 'Banquet Hall',
-    images: [getImage('v17a'), getImage('v17b'), getImage('v17c')],
+    images: [getImage('v17a'), getImage('v17b'), getImage('v17c'), getImage('v17d')],
     baseCost: 210000,
     bookedDates: ['2024-09-08'],
     supportedEvents: ['Marriages (Weddings)', 'Corporate Events', 'General Parties/Gatherings', 'Others'],
