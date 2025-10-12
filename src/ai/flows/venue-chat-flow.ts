@@ -11,6 +11,9 @@
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
 import { venues } from '@/lib/venue-data';
+import { concerts } from '@/lib/concert-data';
+import { workshops } from '@/lib/workshop-data';
+import { eventManagers } from '@/lib/event-manager-data';
 
 const VenueAssistantInputSchema = z.object({
   query: z.string(),
@@ -27,6 +30,31 @@ const venueContext = JSON.stringify(
     supportedEvents: v.supportedEvents,
   }))
 );
+
+const concertContext = JSON.stringify(
+  concerts.map(c => ({
+    name: c.name,
+    artist: c.artist,
+    date: c.date,
+    venue: c.venue,
+  }))
+);
+
+const workshopContext = JSON.stringify(
+  workshops.map(w => ({
+    title: w.title,
+    instructor: w.instructor,
+    date: w.date,
+  }))
+);
+
+const eventManagerContext = JSON.stringify(
+  eventManagers.map(em => ({
+    name: em.name,
+    specializations: em.specializations,
+  }))
+);
+
 
 const faq = `
 **Frequently Asked Questions (FAQ):**
@@ -50,17 +78,26 @@ const faq = `
 const venueAssistantPrompt = ai.definePrompt({
     name: 'venueAssistantPrompt',
     input: { schema: VenueAssistantInputSchema },
-    prompt: `You are a friendly and helpful AI assistant for 'Hyderabad Venues', a company that rents out event spaces.
-    Your goal is to answer user questions accurately and concisely.
-    
-    First, use the FAQ section to answer common questions. If the user's question is not in the FAQ, use the provided venue data.
+    prompt: `You are a friendly and helpful AI assistant for 'Hyderabad Venues', a company that rents out event spaces and provides other services.
+    Your goal is to answer user questions accurately and concisely based on the information provided below.
     Do not make up information. If the answer is not in the data, say that you don't have that information.
     Be friendly and professional.
 
+    First, use the FAQ section to answer common questions. If the question is not in the FAQ, use the other provided data.
+
     ${faq}
 
-    Here is the list of available venues:
+    Here is the list of available venues. We have a total of ${venues.length} venues.
     ${venueContext}
+
+    Here is the list of upcoming concerts:
+    ${concertContext}
+
+    Here is the list of available workshops:
+    ${workshopContext}
+
+    Here is our team of event managers:
+    ${eventManagerContext}
 
     User's question: {{{query}}}
     `,
