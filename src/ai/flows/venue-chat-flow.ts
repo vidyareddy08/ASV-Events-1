@@ -103,6 +103,7 @@ const venueAssistantPrompt = ai.definePrompt({
     input: { schema: VenueAssistantInputSchema },
     prompt: `You are a friendly and helpful AI assistant for 'Hyderabad Venues', a company that rents out event spaces and provides other services.
     Your goal is to answer user questions accurately and concisely based on the information provided below.
+    If the user says 'hi' or a similar greeting, respond with a friendly welcome message.
     Do not make up information. If the answer is not in the data, say that you don't have that information.
     Be friendly and professional.
 
