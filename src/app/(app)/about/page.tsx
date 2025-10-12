@@ -6,8 +6,8 @@ import Image from 'next/image';
 
 const teamMembers = [
   { name: 'Anushritha', role: 'Founder & CEO', imageId: 'team1' },
-  { name: 'Vidya', role: 'Founder & CTO', imageId: 'team2' },
-  { name: 'Sathvika', role: 'Founder & Head of Design', imageId: 'team3' },
+  { name: 'Vidya', role: 'Founder & CEO', imageId: 'team2' },
+  { name: 'Sathvika', role: 'Founder & CEO', imageId: 'team3' },
 ];
 
 export default function AboutPage() {

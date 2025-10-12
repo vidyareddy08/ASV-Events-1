@@ -23,7 +23,7 @@ export const eventManagers: EventManager[] = [
     id: 'em-02',
     name: 'Vidya',
     phone: '876-543-2109',
-    specializations: ['Founder & CTO', 'Tech Events', 'Conferences'],
+    specializations: ['Founder & CEO', 'Tech Events', 'Conferences'],
     portfolio: [
       'Led the development of the venue booking platform.',
       'Executed a product launch event for a major tech company.',
@@ -34,7 +34,7 @@ export const eventManagers: EventManager[] = [
     id: 'em-03',
     name: 'Sathvika',
     phone: '765-432-1098',
-    specializations: ['Founder & Head of Design', 'Themed Parties', 'Sangeeths'],
+    specializations: ['Founder & CEO', 'Themed Parties', 'Sangeeths'],
     portfolio: [
       'Designed the user experience and brand identity.',
       'Curated visually stunning themed parties and Sangeeths.',
