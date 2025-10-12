@@ -15,7 +15,7 @@ export default function AboutPage() {
   return (
     <div className="container mx-auto py-12 px-4 md:px-6">
       <header className="text-center mb-16">
-        <h1 className="text-4xl md:text-5xl font-bold font-headline text-primary">About Hyderabad Venues</h1>
+        <h1 className="text-4xl md:text-5xl font-bold font-headline text-primary">About ASV Events</h1>
         <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
           Learn about our journey, our values, and the passionate team dedicated to finding the best event spaces in Hyderabad.
         </p>
@@ -27,7 +27,7 @@ export default function AboutPage() {
             <History className="h-10 w-10 text-primary mb-4" />
             <h2 className="text-3xl font-bold font-headline mb-3">Our History</h2>
             <p className="text-muted-foreground">
-              Founded in 2023, Hyderabad Venues started as a project to simplify finding the perfect spot for local events. We are passionate about connecting people with the best halls, lawns, and spaces our city has to offer.
+              Founded in 2023, ASV Events started as a project to simplify finding the perfect spot for local events. We are passionate about connecting people with the best halls, lawns, and spaces our city has to offer.
             </p>
           </CardContent>
         </Card>

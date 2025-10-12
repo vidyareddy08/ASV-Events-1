@@ -1,3 +1,4 @@
+
 'use client';
 import Link from 'next/link';
 import { useAuth } from '@/hooks/useAuth';
@@ -51,7 +52,7 @@ export default function Header() {
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
         <Link href="/venues" className="flex items-center gap-2 font-bold text-lg text-primary font-headline">
           <Wind className="h-6 w-6" />
-          Hyderabad Venues
+          ASV Events
         </Link>
         <div className="hidden md:flex items-center gap-2">
           <NavLinks />
@@ -72,7 +73,7 @@ export default function Header() {
                 <div className="p-6 border-b">
                   <Link href="/venues" onClick={() => setSheetOpen(false)} className="flex items-center gap-2 font-bold text-lg text-primary font-headline">
                     <Wind className="h-6 w-6" />
-                    Hyderabad Venues
+                    ASV Events
                   </Link>
                 </div>
                 <div className="flex-grow p-4">

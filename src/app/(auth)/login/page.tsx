@@ -80,7 +80,7 @@ function LoginForm({ onSwitchToSignup, initialEmail }: { onSwitchToSignup: () =>
   return (
     <>
       <CardHeader className="text-center">
-        <CardTitle className="text-3xl font-headline">Hyderabad Venues</CardTitle>
+        <CardTitle className="text-3xl font-headline">ASV Events</CardTitle>
         <CardDescription>Welcome back! Please sign in to continue.</CardDescription>
       </CardHeader>
       <CardContent>
@@ -165,7 +165,7 @@ function SignupForm({ onSwitchToLogin }: { onSwitchToLogin: (email: string) => v
   return (
     <>
       <CardHeader className="text-center">
-        <CardTitle className="text-3xl font-headline">Hyderabad Venues</CardTitle>
+        <CardTitle className="text-3xl font-headline">ASV Events</CardTitle>
         <CardDescription>Create your account to book a venue.</CardDescription>
       </CardHeader>
       <CardContent>

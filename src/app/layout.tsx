@@ -1,10 +1,11 @@
+
 import type { Metadata } from 'next';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { Toaster } from '@/components/ui/toaster';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Hyderabad Venues',
+  title: 'ASV Events',
   description: 'Find and book the perfect venue for your next event in Hyderabad.',
 };
 

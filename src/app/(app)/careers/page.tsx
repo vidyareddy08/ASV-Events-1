@@ -1,3 +1,4 @@
+
 'use client';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -54,7 +55,7 @@ const jobOpenings = [
     title: 'Customer Support Specialist',
     location: 'Remote (Hyderabad-based)',
     package: '₹6-9 LPA',
-    description: 'You are the voice of Hyderabad Venues. This role is vital for ensuring a seamless and positive booking experience, directly impacting customer satisfaction and retention.',
+    description: 'You are the voice of ASV Events. This role is vital for ensuring a seamless and positive booking experience, directly impacting customer satisfaction and retention.',
   },
 ];
 

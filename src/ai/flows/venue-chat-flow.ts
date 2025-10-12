@@ -75,14 +75,14 @@ const faq = `
 `;
 
 const aboutUsContext = `
-**About Hyderabad Venues:**
+**About ASV Events:**
 
-*   **History:** Founded in 2023, Hyderabad Venues started as a project to simplify finding the perfect spot for local events. We are passionate about connecting people with the best halls, lawns, and spaces our city has to offer.
+*   **History:** Founded in 2023, ASV Events started as a project to simplify finding the perfect spot for local events. We are passionate about connecting people with the best halls, lawns, and spaces our city has to offer.
 *   **Vision:** Our vision is to be the go-to platform for booking event venues in Hyderabad. We aim to provide a seamless booking experience that makes event planning a pleasure, not a chore.
 `;
 
 const careersContext = `
-**Careers at Hyderabad Venues:**
+**Careers at ASV Events:**
 
 We are currently hiring for the following roles:
 *   **Senior Frontend Engineer:** Location: Hyderabad, IN. Package: ₹18-25 LPA.
@@ -102,7 +102,7 @@ const featuresContext = `
 const venueAssistantPrompt = ai.definePrompt({
     name: 'venueAssistantPrompt',
     input: { schema: VenueAssistantInputSchema },
-    prompt: `You are a friendly and helpful AI assistant for 'Hyderabad Venues', a company that rents out event spaces and provides other services.
+    prompt: `You are a friendly and helpful AI assistant for 'ASV Events', a company that rents out event spaces and provides other services.
     Your goal is to answer user questions accurately and concisely based on the information provided below.
     If the user says 'hi' or a similar greeting, respond with a friendly welcome message.
     If a user asks for a venue suggestion, ask for the type of event and expected number of guests to provide a better recommendation.
