@@ -23,7 +23,7 @@ import {
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { format, isBefore, addMonths } from 'date-fns';
-import { CheckCircle, XCircle, PartyPopper, Tag, CreditCard, Landmark, Star, CalendarCheck, Users, Briefcase, ChevronDown } from 'lucide-react';
+import { CheckCircle, XCircle, PartyPopper, Tag, Star, CalendarCheck, Briefcase } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
@@ -32,20 +32,23 @@ import { Switch } from '@/components/ui/switch';
 import { eventManagers } from '@/lib/event-manager-data';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { useAuth } from '@/hooks/useAuth';
+import AuthDialog from '@/components/AuthDialog';
 
 export default function VenueDetailPage() {
   const params = useParams();
   const router = useRouter();
   const { toast } = useToast();
+  const { isAuthenticated } = useAuth();
   const venueId = params.id as string;
   const venue = venues.find((v) => v.id === venueId);
 
   const [selectedDate, setSelectedDate] = React.useState<Date | undefined>();
-  const [selectedPayment, setSelectedPayment] = React.useState<string | null>(null);
   const [eventType, setEventType] = React.useState<string>('');
   const [capacity, setCapacity] = React.useState<number | string>('');
   const [needsManager, setNeedsManager] = React.useState(false);
   const [selectedManager, setSelectedManager] = React.useState<string | null>(null);
+  const [isAuthDialogOpen, setAuthDialogOpen] = React.useState(false);
 
 
   if (!venue) {
@@ -105,7 +108,7 @@ export default function VenueDetailPage() {
   const discountAmount = totalBeforeDiscount * discountPercentage;
   const finalCost = selectedDate ? totalBeforeDiscount - discountAmount : baseCost;
     
-  const handleBooking = () => {
+  const processBooking = () => {
     if (!selectedDate) {
        toast({ title: 'Select a Date', description: `Please select an available date to book.`, variant: 'destructive'});
        return;
@@ -122,10 +125,6 @@ export default function VenueDetailPage() {
       toast({ title: 'Select Event Manager', description: 'Please choose an event manager from the list.', variant: 'destructive' });
       return;
     }
-    if (!selectedPayment) {
-        toast({ title: 'Select Payment Method', description: `Please choose a payment method to proceed.`, variant: 'destructive'});
-        return;
-     }
 
     const managerName = eventManagers.find(em => em.id === selectedManager)?.name;
     const invoiceNumber = Math.floor(Math.random() * 9000) + 1000;
@@ -142,15 +141,27 @@ export default function VenueDetailPage() {
     });
     // Reset state
     setSelectedDate(undefined);
-    setSelectedPayment(null);
     setEventType('');
     setCapacity('');
     setNeedsManager(false);
     setSelectedManager(null);
   }
 
+  const handleBookingClick = () => {
+    if (isAuthenticated) {
+      processBooking();
+    } else {
+      setAuthDialogOpen(true);
+    }
+  };
+
   return (
     <div className="container mx-auto py-12 px-4 md:px-6">
+      <AuthDialog 
+        open={isAuthDialogOpen} 
+        onOpenChange={setAuthDialogOpen}
+        onLoginSuccess={processBooking}
+      />
       <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
         <div>
           <h1 className="text-3xl md:text-4xl font-bold font-headline text-primary mb-2">
@@ -322,23 +333,10 @@ export default function VenueDetailPage() {
                     </CardContent>
                    </Card>
                 )}
-
               </div>
             </CardContent>
-            
-            {selectedDate && (
-                <CardContent className="space-y-4">
-                  <div>
-                     <h4 className="text-md font-semibold mb-3 text-center">Choose a Payment Method</h4>
-                     <div className="grid grid-cols-3 gap-2">
-                        <Button variant={selectedPayment === 'card' ? 'default' : 'outline'} onClick={() => setSelectedPayment('card')}><CreditCard /> Card</Button>
-                        <Button variant={selectedPayment === 'upi' ? 'default' : 'outline'} onClick={() => setSelectedPayment('upi')}>₹ UPI</Button>
-                        <Button variant={selectedPayment === 'netbanking' ? 'default' : 'outline'} onClick={() => setSelectedPayment('netbanking')}><Landmark/> Net Banking</Button>                     </div>
-                  </div>
-                </CardContent>
-            )}
             <CardFooter>
-              <Button onClick={handleBooking} className="w-full" size="lg" disabled={!selectedDate}>
+              <Button onClick={handleBookingClick} className="w-full" size="lg" disabled={!selectedDate}>
                 {selectedDate ? `Book for ${format(selectedDate, 'PPP')}` : 'Select a Date'}
               </Button>
             </CardFooter>

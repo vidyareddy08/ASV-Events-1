@@ -11,7 +11,7 @@ interface User {
 interface AuthContextType {
   isAuthenticated: boolean;
   user: User | null;
-  login: (email: string, password?: string) => boolean;
+  login: (email: string, password?: string, redirect?: boolean) => boolean;
   logout: () => void;
   signup: (email: string, password?: string) => boolean;
   isLoading: boolean;
@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setIsLoading(false);
   }, []);
 
-  const login = useCallback((email: string, password?: string) => {
+  const login = useCallback((email: string, password?: string, redirect: boolean = true) => {
     try {
       const storedUsers = JSON.parse(localStorage.getItem('users') || '{}');
       if (storedUsers[email] && storedUsers[email] === password) {
@@ -46,7 +46,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         localStorage.setItem('user', JSON.stringify(currentUser));
         setUser(currentUser);
         setIsAuthenticated(true);
-        router.push('/venues');
+        if (redirect) {
+            router.push('/venues');
+        }
         return true;
       }
       return false;

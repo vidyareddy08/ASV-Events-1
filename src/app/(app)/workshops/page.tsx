@@ -11,9 +11,11 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { workshops, type Workshop } from '@/lib/workshop-data';
-import { Calendar, Edit, User, CreditCard, Landmark } from 'lucide-react';
+import { Calendar, Edit, User } from 'lucide-react';
 import Image from 'next/image';
 import { format } from 'date-fns';
+import { useAuth } from '@/hooks/useAuth';
+import AuthDialog from '@/components/AuthDialog';
 
 const participantSchema = z.object({
   name: z.string().min(2, { message: 'Name is required.' }),
@@ -23,7 +25,6 @@ const participantSchema = z.object({
 const registrationSchema = z.object({
   participantCount: z.number().min(1, 'At least one participant is required.').max(10, 'You can register a maximum of 10 participants.'),
   participants: z.array(participantSchema).min(1),
-  paymentMethod: z.string().nonempty({ message: 'Please select a payment method.' }),
 });
 
 type RegistrationFormValues = z.infer<typeof registrationSchema>;
@@ -34,7 +35,6 @@ function RegistrationForm({ workshop, onRegister }: { workshop: Workshop; onRegi
     defaultValues: {
       participantCount: 1,
       participants: [{ name: '', email: '' }],
-      paymentMethod: ''
     },
   });
 
@@ -125,21 +125,6 @@ function RegistrationForm({ workshop, onRegister }: { workshop: Workshop; onRegi
               />
             </div>
           ))}
-
-          <FormField
-            control={form.control}
-            name="paymentMethod"
-            render={({ field }) => (
-            <FormItem>
-               <FormLabel>Payment Method</FormLabel>
-                 <div className="grid grid-cols-3 gap-2">
-                      <Button type="button" variant={field.value === 'card' ? 'default' : 'outline'} onClick={() => field.onChange('card')}><CreditCard /> Card</Button>
-                      <Button type="button" variant={field.value === 'upi' ? 'default' : 'outline'} onClick={() => field.onChange('upi')}>₹ UPI</Button>
-                      <Button type="button" variant={field.value === 'netbanking' ? 'default' : 'outline'} onClick={() => field.onChange('netbanking')}><Landmark/> Net Banking</Button>
-                 </div>
-              <FormMessage />
-            </FormItem>
-          )} />
           
           <div className="border-t pt-4 text-right">
             <p className="text-sm text-muted-foreground">Total Amount</p>
@@ -160,17 +145,42 @@ function RegistrationForm({ workshop, onRegister }: { workshop: Workshop; onRegi
 
 export default function WorkshopsPage() {
   const { toast } = useToast();
-  const [openDialogId, setOpenDialogId] = useState<string | null>(null);
+  const { isAuthenticated } = useAuth();
+  const [openRegisterDialogId, setOpenRegisterDialogId] = useState<string | null>(null);
+  const [isAuthDialogOpen, setAuthDialogOpen] = useState(false);
+  const [pendingRegistration, setPendingRegistration] = useState<{ values: RegistrationFormValues, title: string } | null>(null);
 
-  const handleRegistration = (values: RegistrationFormValues, workshopTitle: string) => {
+  const processRegistration = (values: RegistrationFormValues, workshopTitle: string) => {
     const { participantCount, participants } = values;
     toast({
       title: 'Registration Confirmed!',
       description: `Registered ${participantCount} person(s) for "${workshopTitle}". Emails sent to ${participants.map(p=>p.email).join(', ')}.`,
       variant: 'default',
     });
-    setOpenDialogId(null);
+    setOpenRegisterDialogId(null);
+    setPendingRegistration(null);
   };
+
+  const handleFormSubmit = (values: RegistrationFormValues, workshopTitle: string) => {
+    if (isAuthenticated) {
+      processRegistration(values, workshopTitle);
+    } else {
+      setPendingRegistration({ values, title: workshopTitle });
+      setOpenRegisterDialogId(null);
+      setAuthDialogOpen(true);
+    }
+  };
+
+  const handleLoginSuccess = () => {
+    setAuthDialogOpen(false);
+    if(pendingRegistration) {
+      processRegistration(pendingRegistration.values, pendingRegistration.title);
+    }
+  }
+
+  const handleRegisterClick = (workshopId: string) => {
+    setOpenRegisterDialogId(workshopId);
+  }
 
   return (
     <div className="container mx-auto py-12 px-4 md:px-6">
@@ -183,9 +193,15 @@ export default function WorkshopsPage() {
         </p>
       </header>
 
+      <AuthDialog 
+        open={isAuthDialogOpen}
+        onOpenChange={setAuthDialogOpen}
+        onLoginSuccess={handleLoginSuccess}
+      />
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {workshops.map((workshop) => (
-           <Dialog key={workshop.id} open={openDialogId === workshop.id} onOpenChange={(isOpen) => setOpenDialogId(isOpen ? workshop.id : null)}>
+           <Dialog key={workshop.id} open={openRegisterDialogId === workshop.id} onOpenChange={(isOpen) => !isOpen && setOpenRegisterDialogId(null)}>
             <Card
               className="overflow-hidden rounded-xl shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 flex flex-col"
             >
@@ -222,7 +238,7 @@ export default function WorkshopsPage() {
                   </span>
                 </div>
                 <DialogTrigger asChild>
-                  <Button>
+                  <Button onClick={() => handleRegisterClick(workshop.id)}>
                     <Edit className="mr-2" />
                     Register
                   </Button>
@@ -230,7 +246,7 @@ export default function WorkshopsPage() {
               </CardFooter>
             </Card>
              <DialogContent className="sm:max-w-xl">
-               <RegistrationForm workshop={workshop} onRegister={(values) => handleRegistration(values, workshop.title)} />
+               <RegistrationForm workshop={workshop} onRegister={(values) => handleFormSubmit(values, workshop.title)} />
             </DialogContent>
           </Dialog>
         ))}

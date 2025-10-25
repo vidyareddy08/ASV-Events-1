@@ -4,11 +4,11 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { concerts, type Concert } from '@/lib/concert-data';
-import { Calendar, MapPin, Music, Ticket, Star, Crown, CreditCard, Landmark, Users } from 'lucide-react';
+import { Calendar, MapPin, Music, Ticket, Star, Crown } from 'lucide-react';
 import Image from 'next/image';
 import { format } from 'date-fns';
 import { useState } from 'react';
-import { useForm, useFieldArray, Controller } from 'react-hook-form';
+import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger, DialogClose } from '@/components/ui/dialog';
@@ -16,6 +16,8 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { useAuth } from '@/hooks/useAuth';
+import AuthDialog from '@/components/AuthDialog';
 
 const attendeeSchema = z.object({
   name: z.string().min(2, { message: 'Name is required.' }),
@@ -26,7 +28,6 @@ const bookingSchema = z.object({
   seatType: z.enum(['general', 'vip']),
   ticketCount: z.number().min(1, 'At least one ticket is required.').max(10, 'You can book a maximum of 10 tickets.'),
   attendees: z.array(attendeeSchema).min(1),
-  paymentMethod: z.string().nonempty({ message: 'Please select a payment method.' }),
 });
 
 type BookingFormValues = z.infer<typeof bookingSchema>;
@@ -38,7 +39,6 @@ function BookingForm({ concert, onBook }: { concert: Concert, onBook: (values: B
       seatType: 'general',
       ticketCount: 1,
       attendees: [{ name: '', email: '' }],
-      paymentMethod: '',
     }
   });
 
@@ -157,21 +157,6 @@ function BookingForm({ concert, onBook }: { concert: Concert, onBook: (values: B
             </div>
           ))}
 
-          <FormField
-            control={form.control}
-            name="paymentMethod"
-            render={({ field }) => (
-            <FormItem>
-               <FormLabel>Payment Method</FormLabel>
-                 <div className="grid grid-cols-3 gap-2">
-                      <Button type="button" variant={field.value === 'card' ? 'default' : 'outline'} onClick={() => field.onChange('card')}><CreditCard /> Card</Button>
-                      <Button type="button" variant={field.value === 'upi' ? 'default' : 'outline'} onClick={() => field.onChange('upi')}>₹ UPI</Button>
-                      <Button type="button" variant={field.value === 'netbanking' ? 'default' : 'outline'} onClick={() => field.onChange('netbanking')}><Landmark/> Net Banking</Button>
-                 </div>
-              <FormMessage />
-            </FormItem>
-          )} />
-
           <div className="border-t pt-4 text-right">
             <p className="text-sm text-muted-foreground">Total Amount</p>
             <p className="text-2xl font-bold">₹{totalAmount.toLocaleString('en-IN')}</p>
@@ -188,20 +173,45 @@ function BookingForm({ concert, onBook }: { concert: Concert, onBook: (values: B
 
 export default function ConcertsPage() {
   const { toast } = useToast();
-  const [openDialogConcert, setOpenDialogConcert] = useState<Concert | null>(null);
-
-  const handleBooking = (values: BookingFormValues) => {
+  const { isAuthenticated } = useAuth();
+  const [openBookingDialog, setOpenBookingDialog] = useState<Concert | null>(null);
+  const [isAuthDialogOpen, setAuthDialogOpen] = useState(false);
+  const [pendingBooking, setPendingBooking] = useState<BookingFormValues | null>(null);
+  
+  const processBooking = (values: BookingFormValues) => {
     const { ticketCount, attendees } = values;
-    const concert = openDialogConcert!;
+    const concert = openBookingDialog!;
 
     toast({
       title: 'Tickets Booked!',
       description: `Booked ${ticketCount} ticket(s) for ${concert.name}. Confirmation emails sent to ${attendees.map(a => a.email).join(', ')}.`,
       variant: 'default',
     });
-    setOpenDialogConcert(null);
+    setOpenBookingDialog(null);
+    setPendingBooking(null);
   };
-  
+
+  const handleFormSubmit = (values: BookingFormValues) => {
+    if (isAuthenticated) {
+      processBooking(values);
+    } else {
+      setPendingBooking(values);
+      setOpenBookingDialog(null); // Close booking form
+      setAuthDialogOpen(true); // Open auth dialog
+    }
+  };
+
+  const handleLoginSuccess = () => {
+    setAuthDialogOpen(false);
+    if(pendingBooking && openBookingDialog) {
+        processBooking(pendingBooking)
+    }
+  }
+
+  const handleBookNowClick = (concert: Concert) => {
+    setOpenBookingDialog(concert);
+  };
+
   return (
     <div className="container mx-auto py-12 px-4 md:px-6">
       <header className="text-center mb-12">
@@ -213,7 +223,13 @@ export default function ConcertsPage() {
         </p>
       </header>
 
-      <Dialog open={!!openDialogConcert} onOpenChange={(isOpen) => !isOpen && setOpenDialogConcert(null)}>
+      <AuthDialog 
+        open={isAuthDialogOpen}
+        onOpenChange={setAuthDialogOpen}
+        onLoginSuccess={handleLoginSuccess}
+      />
+
+      <Dialog open={!!openBookingDialog} onOpenChange={(isOpen) => !isOpen && setOpenBookingDialog(null)}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {concerts.map((concert) => (
             <Card
@@ -256,7 +272,7 @@ export default function ConcertsPage() {
                   </span>
                 </div>
                  <DialogTrigger asChild>
-                  <Button onClick={() => setOpenDialogConcert(concert)}>
+                  <Button onClick={() => handleBookNowClick(concert)}>
                     <Ticket className="mr-2" />
                     Book Now
                   </Button>
@@ -265,9 +281,9 @@ export default function ConcertsPage() {
             </Card>
           ))}
         </div>
-        {openDialogConcert && (
+        {openBookingDialog && (
           <DialogContent className="sm:max-w-xl">
-            <BookingForm concert={openDialogConcert} onBook={handleBooking} />
+            <BookingForm concert={openBookingDialog} onBook={handleFormSubmit} />
           </DialogContent>
         )}
       </Dialog>

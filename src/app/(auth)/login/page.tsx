@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useForm, useWatch } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useAuth } from '@/hooks/useAuth';
@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Wind, Globe, Eye, EyeOff, CheckCircle, XCircle } from 'lucide-react';
+import { Wind, Globe, Eye, EyeOff } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
@@ -20,7 +20,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from '@/hooks/use-toast';
-import { cn } from '@/lib/utils';
+import Link from 'next/link';
 
 // Schemas
 const passwordValidation = z.string()
@@ -48,7 +48,7 @@ type SignupFormValues = z.infer<typeof signupSchema>;
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 // LoginForm Component
-function LoginForm({ onSwitchToSignup, initialEmail }: { onSwitchToSignup: () => void; initialEmail?: string; }) {
+function LoginForm({ onSwitchToSignup, initialEmail, onLoginSuccess }: { onSwitchToSignup: () => void; initialEmail?: string; onLoginSuccess?: () => void; }) {
   const { login } = useAuth();
   const { toast } = useToast();
   const [showPassword, setShowPassword] = useState(false);
@@ -67,13 +67,19 @@ function LoginForm({ onSwitchToSignup, initialEmail }: { onSwitchToSignup: () =>
   }, [initialEmail, form]);
 
   function onSubmit(data: LoginFormValues) {
-    const success = login(data.email, data.password);
+    const success = login(data.email, data.password, true); // Don't redirect from here
     if (!success) {
       toast({
         variant: 'destructive',
         title: 'Login Failed',
         description: 'Invalid email or password. Please try again.',
       });
+    } else {
+       toast({
+        title: 'Login Successful',
+        description: 'Welcome back!',
+      });
+      onLoginSuccess?.();
     }
   }
 
@@ -142,8 +148,6 @@ function SignupForm({ onSwitchToLogin }: { onSwitchToLogin: (email: string) => v
     defaultValues: { email: '', password: '', confirmPassword: ''},
     mode: 'onTouched',
   });
-
-  const password = useWatch({ control: form.control, name: 'password' });
 
   function onSubmit(data: SignupFormValues) {
     const success = signup(data.email, data.password);
@@ -238,7 +242,6 @@ function SignupForm({ onSwitchToLogin }: { onSwitchToLogin: (email: string) => v
   );
 }
 
-
 const indianLanguages = [
   { code: 'en', name: 'English' },
   { code: 'hi', name: 'हिन्दी (Hindi)' },
@@ -284,8 +287,8 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen w-full items-center justify-center bg-background p-4">
-      <div className="absolute top-4 right-4">
+    <div className="flex min-h-screen w-full items-center justify-center bg-background p-4 relative">
+      <div className="absolute top-4 right-4 z-10">
         <div className="flex items-center gap-2">
            <Globe className="h-5 w-5 text-muted-foreground" />
            <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
@@ -299,6 +302,11 @@ export default function LoginPage() {
             </SelectContent>
           </Select>
         </div>
+      </div>
+       <div className="absolute top-4 left-4 z-10">
+        <Button asChild variant="outline">
+          <Link href="/venues">Browse as Guest</Link>
+        </Button>
       </div>
       <div className="w-full max-w-sm">
         <div className="flex justify-center mb-6">

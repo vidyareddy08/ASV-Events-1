@@ -3,9 +3,9 @@
 import Link from 'next/link';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
-import { Menu, Wind } from 'lucide-react';
+import { Menu, Wind, LogIn, LogOut } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
 
@@ -22,9 +22,24 @@ const navLinks = [
 ];
 
 export default function Header() {
-  const { logout } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
   const pathname = usePathname();
+  const router = useRouter();
   const [isSheetOpen, setSheetOpen] = useState(false);
+
+  const AuthButton = ({ isMobile = false }) => (
+    isAuthenticated ? (
+      <Button onClick={logout} variant={isMobile ? 'default' : 'outline'} size="sm" className={cn(isMobile && 'w-full')}>
+        <LogOut className="mr-2" />
+        Logout
+      </Button>
+    ) : (
+      <Button onClick={() => router.push('/login')} variant={isMobile ? 'default' : 'outline'} size="sm" className={cn(isMobile && 'w-full')}>
+        <LogIn className="mr-2" />
+        Login / Sign Up
+      </Button>
+    )
+  );
 
   const NavLinks = ({ isMobile = false }: { isMobile?: boolean }) => (
     <nav className={cn('flex items-center gap-1', isMobile ? 'flex-col items-start w-full' : 'hidden md:flex')}>
@@ -48,7 +63,7 @@ export default function Header() {
   );
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-b">
+    <header className="sticky top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-b">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
         <Link href="/venues" className="flex items-center gap-2 font-bold text-lg text-primary font-headline">
           <Wind className="h-6 w-6" />
@@ -56,9 +71,7 @@ export default function Header() {
         </Link>
         <div className="hidden md:flex items-center gap-2">
           <NavLinks />
-          <Button onClick={logout} variant="outline" size="sm">
-            Logout
-          </Button>
+          <AuthButton />
         </div>
         <div className="md:hidden">
           <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
@@ -80,9 +93,7 @@ export default function Header() {
                   <NavLinks isMobile />
                 </div>
                 <div className="p-6 border-t">
-                  <Button onClick={logout} variant="default" className="w-full">
-                    Logout
-                  </Button>
+                  <AuthButton isMobile />
                 </div>
               </div>
             </SheetContent>
