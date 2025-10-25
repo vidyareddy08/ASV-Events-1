@@ -7,8 +7,9 @@ import { Card, CardContent } from '@/components/ui/card';
 import Image from 'next/image';
 import Link from 'next/link';
 import { venues } from '@/lib/venue-data';
-import { ArrowRight, MapPin } from 'lucide-react';
+import { ArrowRight, Globe, MapPin } from 'lucide-react';
 import VenueChatbot from '@/components/VenueChatbot';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const locations = [
   'All',
@@ -19,8 +20,25 @@ const locations = [
   'Hyderabad (Central)',
 ];
 
+const indianLanguages = [
+  { code: 'en', name: 'English' },
+  { code: 'hi', name: 'हिन्दी (Hindi)' },
+  { code: 'bn', name: 'বাংলা (Bengali)' },
+  { code: 'te', name: 'తెలుగు (Telugu)' },
+  { code: 'mr', name: 'मराठी (Marathi)' },
+  { code: 'ta', name: 'தமிழ் (Tamil)' },
+  { code: 'ur', name: 'اردو (Urdu)' },
+  { code: 'gu', name: 'ગુજરાતી (Gujarati)' },
+  { code: 'kn', name: 'ಕನ್ನಡ (Kannada)' },
+  { code: 'or', name: 'ଓଡ଼ିଆ (Odia)' },
+  { code: 'ml', name: 'മലയാളം (Malayalam)' },
+  { code: 'pa', name: 'ਪੰਜਾਬੀ (Punjabi)' },
+  { code: 'as', name: 'অসমীয়া (Assamese)' },
+];
+
 export default function VenuesPage() {
   const [selectedLocation, setSelectedLocation] = useState('All');
+  const [selectedLanguage, setSelectedLanguage] = useState('en');
 
   const filteredVenues =
     selectedLocation === 'All'
@@ -52,7 +70,22 @@ export default function VenuesPage() {
         </div>
       </div>
       
-      <VenueChatbot />
+      <div className="max-w-2xl mx-auto space-y-4 mb-4">
+        <div className="flex justify-end items-center gap-2">
+           <Globe className="h-5 w-5 text-muted-foreground" />
+           <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
+            <SelectTrigger className="w-[180px] bg-card">
+              <SelectValue placeholder="Language" />
+            </SelectTrigger>
+            <SelectContent>
+              {indianLanguages.map(lang => (
+                 <SelectItem key={lang.code} value={lang.code}>{lang.name}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <VenueChatbot />
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
         {filteredVenues.map((venue) => (

@@ -242,28 +242,11 @@ function SignupForm({ onSwitchToLogin }: { onSwitchToLogin: (email: string) => v
   );
 }
 
-const indianLanguages = [
-  { code: 'en', name: 'English' },
-  { code: 'hi', name: 'हिन्दी (Hindi)' },
-  { code: 'bn', name: 'বাংলা (Bengali)' },
-  { code: 'te', name: 'తెలుగు (Telugu)' },
-  { code: 'mr', name: 'मराठी (Marathi)' },
-  { code: 'ta', name: 'தமிழ் (Tamil)' },
-  { code: 'ur', name: 'اردو (Urdu)' },
-  { code: 'gu', name: 'ગુજરાતી (Gujarati)' },
-  { code: 'kn', name: 'ಕನ್ನಡ (Kannada)' },
-  { code: 'or', name: 'ଓଡ଼ିଆ (Odia)' },
-  { code: 'ml', name: 'മലയാളം (Malayalam)' },
-  { code: 'pa', name: 'ਪੰਜਾਬੀ (Punjabi)' },
-  { code: 'as', name: 'অসমীয়া (Assamese)' },
-];
-
 
 export default function LoginPage() {
   const { isAuthenticated } = useAuth();
   const router = useRouter();
   const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
-  const [selectedLanguage, setSelectedLanguage] = useState('en');
   const [initialEmail, setInitialEmail] = useState('');
 
   useEffect(() => {
@@ -288,21 +271,6 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-screen w-full items-center justify-center bg-background p-4 relative">
-      <div className="absolute top-4 right-4 z-10">
-        <div className="flex items-center gap-2">
-           <Globe className="h-5 w-5 text-muted-foreground" />
-           <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
-            <SelectTrigger className="w-[180px] bg-card">
-              <SelectValue placeholder="Language" />
-            </SelectTrigger>
-            <SelectContent>
-              {indianLanguages.map(lang => (
-                 <SelectItem key={lang.code} value={lang.code}>{lang.name}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
        <div className="absolute top-4 left-4 z-10">
         <Button asChild variant="outline">
           <Link href="/venues">Browse as Guest</Link>
